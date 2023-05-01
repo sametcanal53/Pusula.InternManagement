@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Pusula.InternManagement.Departments;
 using Pusula.InternManagement.Interns;
+using Pusula.InternManagement.Universities;
 using Pusula.InternManagement.UniversityDepartments;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
@@ -58,7 +59,7 @@ public class InternManagementDbContext :
 
     public DbSet<Intern> Interns { get; set; }
     public DbSet<Department> Departments { get; set; }
-
+    public DbSet<University> Universities { get; set; }
     public DbSet<UniversityDepartment> UniversityDepartments { get; set; }
 
     public InternManagementDbContext(DbContextOptions<InternManagementDbContext> options)
@@ -109,6 +110,14 @@ public class InternManagementDbContext :
             b.Property(x => x.Name).IsRequired().HasMaxLength(DepartmentConsts.MaxNameLength);
 
             b.HasIndex(x => x.Name);
+        });
+
+        builder.Entity<University>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Universities",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(UniversityConsts.MaxNameLength);
         });
 
         builder.Entity<UniversityDepartment>(b =>

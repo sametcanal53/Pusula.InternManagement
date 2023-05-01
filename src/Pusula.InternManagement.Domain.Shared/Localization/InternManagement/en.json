@@ -63,6 +63,21 @@
     "DepartmentId": "Department id",
     "Department": "Department",
 
+    //University
+    "Permission:Universities": "University Management",
+    "Permission:Universities.Create": "Creating new universities",
+    "Permission:Universities.Edit": "Editing the universities",
+    "Permission:Universities.Delete": "Deleting the universities",
+    "Permission:Universities.Admin": "Admin permission for the universities",
+    "Menu:Universities": "Universities",
+    "University": "University",
+    "Universities": "Universities",
+    "UniversityDeletionConfirmationMessage": "Are you sure to delete the university '{0}'?",
+    "NewUniversity": "New University",
+    "EditUniversity": "Edit University",
+    "UniversityId": "University Id",
+    "UniversityName": "University Name",
+
     //University Departments
     "Permission:UniversityDepartments": "University Department Management",
     "Permission:UniversityDepartments.Create": "Creating new university departments",

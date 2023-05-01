@@ -21,6 +21,11 @@ public class InternManagementPermissionDefinitionProvider : PermissionDefinition
         departmentsPermission.AddChild(InternManagementPermissions.Departments.Create, L("Permission:Departments.Create"));
         departmentsPermission.AddChild(InternManagementPermissions.Departments.Edit, L("Permission:Departments.Edit"));
         departmentsPermission.AddChild(InternManagementPermissions.Departments.Delete, L("Permission:Departments.Delete"));
+        
+        var universitiesPermission = group.AddPermission(InternManagementPermissions.Universities.Default, L("Permission:Universities"));
+        universitiesPermission.AddChild(InternManagementPermissions.Universities.Create, L("Permission:Universities.Create"));
+        universitiesPermission.AddChild(InternManagementPermissions.Universities.Edit, L("Permission:Universities.Edit"));
+        universitiesPermission.AddChild(InternManagementPermissions.Universities.Delete, L("Permission:Universities.Delete"));
 
         var universityDepartmentsPermission = group.AddPermission(InternManagementPermissions.UniversityDepartments.Default, L("Permission:UniversityDepartments"));
         universityDepartmentsPermission.AddChild(InternManagementPermissions.UniversityDepartments.Create, L("Permission:UniversityDepartments.Create"));
@@ -31,6 +36,7 @@ public class InternManagementPermissionDefinitionProvider : PermissionDefinition
         var adminPermissions = adminGroup.AddPermission("Admin Permissions", L("Permission:InternManagementAdminPermissions"));
         adminPermissions.AddChild(InternManagementPermissions.Interns.Admin, L("Permission:Interns.Admin"));
         adminPermissions.AddChild(InternManagementPermissions.Departments.Admin, L("Permission:Departments.Admin"));
+        adminPermissions.AddChild(InternManagementPermissions.Universities.Admin, L("Permission:Universities.Admin"));
         adminPermissions.AddChild(InternManagementPermissions.UniversityDepartments.Admin, L("Permission:UniversityDepartments.Admin"));
 
     }

@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using Pusula.InternManagement.Departments;
 using Pusula.InternManagement.Interns;
+using Pusula.InternManagement.Universities;
 using Pusula.InternManagement.UniversityDepartments;
 using Pusula.InternManagement.Web.Pages.Interns;
 using Volo.Abp.AutoMapper;
@@ -8,6 +9,8 @@ using static Pusula.InternManagement.Web.Pages.Departments.CreateModalModel;
 using static Pusula.InternManagement.Web.Pages.Departments.EditModalModel;
 using static Pusula.InternManagement.Web.Pages.Interns.CreateModalModel;
 using static Pusula.InternManagement.Web.Pages.Interns.EditModalModel;
+using static Pusula.InternManagement.Web.Pages.Universities.CreateModalModel;
+using static Pusula.InternManagement.Web.Pages.Universities.EditModalModel;
 using static Pusula.InternManagement.Web.Pages.UniversityDepartments.CreateModalModel;
 using static Pusula.InternManagement.Web.Pages.UniversityDepartments.EditModalModel;
 
@@ -26,6 +29,10 @@ public class InternManagementWebAutoMapperProfile : Profile
         CreateMap<CreateDepartmentViewModel, CreateDepartmentDto>();
         CreateMap<DepartmentDto, EditDepartmentViewModel>();
         CreateMap<EditDepartmentViewModel, UpdateDepartmentDto>();
+
+        CreateMap<CreateUniversityViewModel, CreateUniversityDto>();
+        CreateMap<UniversityDto, EditUniversityViewModel>();
+        CreateMap<EditUniversityViewModel, UpdateUniversityDto>();
 
         CreateMap<CreateUniversityDepartmentViewModel, CreateUniversityDepartmentDto>();
         CreateMap<UniversityDepartmentDto, EditUniversityDepartmentViewModel>();
