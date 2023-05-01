@@ -27,6 +27,27 @@
     "DeleterId": "Deleter Id",
     "DeletionTime": "Deletion Time",
 
+    // Interns
+    "NewIntern": "New Intern",
+    "EditIntern": "Edit Intern",
+    "Intern": "Intern",
+    "Interns": "Interns",
+    "Name": "Name",
+    "PhoneNumber": "Phone number",
+    "Email": "Email",
+    "StartDate": "Start Date",
+    "EndDate": "End Date",
+    "Permission:Interns": "Interns",
+    "Permission:Interns.Create": "Creating new interns",
+    "Permission:Interns.Edit": "Editing the interns",
+    "Permission:Interns.Delete": "Deleting the interns",
+    "Permission:Interns.Admin": "Admin permission for the interns",
+    "InternName": "Intern Name",
+    "InternId": "Intern Id",
+    "TotalInternshipDays": "Total Internship Days",
+    "RemainingInternshipDays": "Remaining Internship Days",
+    "InternshipCompleted": "Internship Completed",
+    "day": " day",
 
     //Departments
     "Permission:Departments": "Departments Management",
@@ -44,6 +65,7 @@
 
 
     //Exceptions
+    "InternManagementException:0": "There is already a intern with the same name: {name}",
     "InternManagementException:1": "There is already a department with the same name: {name}"
 
 

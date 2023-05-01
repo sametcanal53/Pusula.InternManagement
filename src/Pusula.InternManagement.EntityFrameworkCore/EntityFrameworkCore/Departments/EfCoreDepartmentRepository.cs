@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Pusula.InternManagement.Departments;
 using Pusula.InternManagement.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
 #nullable disable
-namespace Pusula.InternManagement.Departments
+namespace Pusula.InternManagement.EntityFrameworkCore.Departments
 {
     public class EfCoreDepartmentRepository : EfCoreRepository<InternManagementDbContext, Department, Guid>, IDepartmentRepository
     {

@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Pusula.InternManagement.Departments;
+using Pusula.InternManagement.Interns;
 
 namespace Pusula.InternManagement;
 
@@ -14,5 +15,7 @@ public class InternManagementApplicationAutoMapperProfile : Profile
         CreateMap<Department, DepartmentDto>();
         CreateMap<Department, DepartmentLookupDto>();
 
+        CreateMap<Intern, InternDto>();
+        CreateMap<Intern, InternLookupDto>();
     }
 }

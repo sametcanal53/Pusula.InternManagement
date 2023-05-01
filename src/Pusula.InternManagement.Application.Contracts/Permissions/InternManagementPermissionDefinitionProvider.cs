@@ -12,6 +12,11 @@ public class InternManagementPermissionDefinitionProvider : PermissionDefinition
         //Define your own permissions here. Example:
         //myGroup.AddPermission(InternManagementPermissions.MyPermission1, L("Permission:MyPermission1"));
 
+        var internsPermission = group.AddPermission(InternManagementPermissions.Interns.Default, L("Permission:Interns"));
+        internsPermission.AddChild(InternManagementPermissions.Interns.Create, L("Permission:Interns.Create"));
+        internsPermission.AddChild(InternManagementPermissions.Interns.Edit, L("Permission:Interns.Edit"));
+        internsPermission.AddChild(InternManagementPermissions.Interns.Delete, L("Permission:Interns.Delete"));
+        
         var departmentsPermission = group.AddPermission(InternManagementPermissions.Departments.Default, L("Permission:Departments"));
         departmentsPermission.AddChild(InternManagementPermissions.Departments.Create, L("Permission:Departments.Create"));
         departmentsPermission.AddChild(InternManagementPermissions.Departments.Edit, L("Permission:Departments.Edit"));
@@ -19,9 +24,10 @@ public class InternManagementPermissionDefinitionProvider : PermissionDefinition
 
 
 
+
         var adminGroup = context.AddGroup("", L("Permission:InternManagementAdminPermissions"));
         var adminPermissions = adminGroup.AddPermission("Admin Permissions", L("Permission:InternManagementAdminPermissions"));
-
+        adminPermissions.AddChild(InternManagementPermissions.Interns.Admin, L("Permission:Interns.Admin"));
         adminPermissions.AddChild(InternManagementPermissions.Departments.Admin, L("Permission:Departments.Admin"));
 
     }

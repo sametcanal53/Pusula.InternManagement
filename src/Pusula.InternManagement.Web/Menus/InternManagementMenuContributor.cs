@@ -35,12 +35,17 @@ public class InternManagementMenuContributor : IMenuContributor
                 order: 0
             )
         );
-
         context.Menu.AddItem(
-             new ApplicationMenuItem(
-                "ListController",
-                l["Menu:ListController"],
+            new ApplicationMenuItem(
+                "InternManagement",
+                l["Menu:InternManagement"],
                 icon: "fa fa-list"
+            ).AddItem(
+                new ApplicationMenuItem(
+                    "InternManagement.Interns",
+                    l["Menu:Interns"],
+                    url: "/Interns"
+                ).RequirePermissions(InternManagementPermissions.Interns.Default)
             ).AddItem(
                 new ApplicationMenuItem(
                     "InternManagement.Departments",
@@ -49,6 +54,7 @@ public class InternManagementMenuContributor : IMenuContributor
                 ).RequirePermissions(InternManagementPermissions.Departments.Default)
             )
         );
+
 
         if (MultiTenancyConsts.IsEnabled)
         {
