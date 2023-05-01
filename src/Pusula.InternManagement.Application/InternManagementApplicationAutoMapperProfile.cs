@@ -3,6 +3,7 @@ using Pusula.InternManagement.Departments;
 using Pusula.InternManagement.Educations;
 using Pusula.InternManagement.Experiences;
 using Pusula.InternManagement.Interns;
+using Pusula.InternManagement.Projects;
 using Pusula.InternManagement.Universities;
 using Pusula.InternManagement.UniversityDepartments;
 
@@ -31,6 +32,9 @@ public class InternManagementApplicationAutoMapperProfile : Profile
         CreateMap<UniversityDepartment, UniversityDepartmentLookupDto>();
 
         CreateMap<Experience, ExperienceDto>();
+        
+        CreateMap<Project, ProjectDto>();
+        CreateMap<ProjectWithDetails, ProjectDto>();
 
 
     }

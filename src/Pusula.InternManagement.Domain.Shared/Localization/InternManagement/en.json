@@ -134,13 +134,33 @@
     "Description": "Description",
     "CompanyName": "Company Name",
 
+    //Projects
+    "Permission:Projects": "Projects Management",
+    "Permission:Projects.Create": "Creating new projects",
+    "Permission:Projects.Edit": "Editing the projects",
+    "Permission:Projects.Delete": "Deleting the projects",
+    "Permission:Projects.Admin": "Admin permission for the projects",
+    "Menu:Projects": "Projects",
+    "Project": "Project",
+    "Projects": "Projects",
+    "ProjectDeletionConfirmationMessage": "Are you sure to delete the project '{0}'?",
+    "NewProject": "New Project",
+    "EditProject": "Edit Project",
+    "ProjectInformation": "Project Information",
+    //"Name": "Name",
+    //"Description": "Description",
+    //"StartDate": "Start Date",
+    //"EndDate": "End Date",
+    //"Interns": "Interns",
+
     //Exceptions
     "InternManagementException:0": "There is already a intern with the same name: {name}",
     "InternManagementException:1": "There is already a department with the same name: {name}",
     "InternManagementException:2": "There is already a university with the same name: {name}",
     "InternManagementException:3": "There is already a education with the same name: {name}",
     "InternManagementException:4": "There is already a university department with the same name: {name}",
-    "InternManagementException:5": "There is already a experience with the same name: {name}"
-   
+    "InternManagementException:5": "There is already a experience with the same name: {name}",
+    "InternManagementException:6": "There is already a project with the same name: {name}"
+
   }
 }

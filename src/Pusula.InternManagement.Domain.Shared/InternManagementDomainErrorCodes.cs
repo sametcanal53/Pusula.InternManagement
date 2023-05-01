@@ -10,6 +10,7 @@ public static class InternManagementDomainErrorCodes
     public const string EducationNameAlreadyExists = "InternManagementException:3";
     public const string UniversityDepartmentNameAlreadyExists = "InternManagementException:4";
     public const string ExperienceNameAlreadyExists = "InternManagementException:5";
+    public const string ProjectNameAlreadyExists = "InternManagementException:6";
 
     public const string DateInputError = "InternManagementException:12";
 
