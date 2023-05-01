@@ -153,6 +153,23 @@
     //"EndDate": "End Date",
     //"Interns": "Interns",
 
+    //Instructors
+    "Permission:Instructors": "Instructors Management",
+    "Permission:Instructors.Create": "Creating new instructors",
+    "Permission:Instructors.Edit": "Editing the instructors",
+    "Permission:Instructors.Delete": "Deleting the instructors",
+    "Permission:Instructors.Admin": "Admin permission for the instructors",
+    "Menu:Instructors": "Instructors",
+    "Instructor": "Instructor",
+    "Instructors": "Instructors",
+    "InstructorDeletionConfirmationMessage": "Are you sure to delete the instructor '{0}'?",
+    "NewInstructor": "New Instructor",
+    "EditInstructor": "Edit Instructor",
+    "InstructorInformation": "Instructor Information",
+    //"Name": "Name",
+    //"Title": "Title",
+
+
     //Exceptions
     "InternManagementException:0": "There is already a intern with the same name: {name}",
     "InternManagementException:1": "There is already a department with the same name: {name}",
@@ -160,7 +177,10 @@
     "InternManagementException:3": "There is already a education with the same name: {name}",
     "InternManagementException:4": "There is already a university department with the same name: {name}",
     "InternManagementException:5": "There is already a experience with the same name: {name}",
-    "InternManagementException:6": "There is already a project with the same name: {name}"
+    "InternManagementException:6": "There is already a project with the same name: {name}",
+    "InternManagementException:8": "There is already a instructor with the same name: {name}",
+
+    "InternManagementException:12": "End date cannot be before the start date."
 
   }
 }

@@ -5,10 +5,9 @@ using Volo.Abp.Application.Dtos;
 
 namespace Pusula.InternManagement.Projects
 {
-    public class InternProjectDto : EntityDto
+    public class ProjectInternDto : EntityDto<Guid>
     {
         public Guid ProjectId { get; set; }
         public Guid InternId { get; set; }
-
     }
 }

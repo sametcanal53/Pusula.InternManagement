@@ -2,6 +2,7 @@
 using Pusula.InternManagement.Departments;
 using Pusula.InternManagement.Educations;
 using Pusula.InternManagement.Experiences;
+using Pusula.InternManagement.Instructors;
 using Pusula.InternManagement.Interns;
 using Pusula.InternManagement.Projects;
 using Pusula.InternManagement.Universities;
@@ -68,6 +69,8 @@ public class InternManagementDbContext :
     public DbSet<Experience> Experiences { get; set; }
     public DbSet<Project> Projects { get; set; }
     public DbSet<InternProject> InternProjects { get; set; }
+
+    public DbSet<Instructor> Instructors { get; set; }
 
 
     public InternManagementDbContext(DbContextOptions<InternManagementDbContext> options)
@@ -186,7 +189,14 @@ public class InternManagementDbContext :
 
         });
 
-
+        builder.Entity<Instructor>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Instructors",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(InstructorConsts.MaxNameLength);
+            b.Property(x => x.Title).IsRequired().HasMaxLength(InstructorConsts.MaxTitleLength);
+        });
 
 
     }

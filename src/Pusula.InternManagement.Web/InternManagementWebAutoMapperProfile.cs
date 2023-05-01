@@ -2,10 +2,12 @@
 using Pusula.InternManagement.Departments;
 using Pusula.InternManagement.Educations;
 using Pusula.InternManagement.Experiences;
+using Pusula.InternManagement.Instructors;
 using Pusula.InternManagement.Interns;
 using Pusula.InternManagement.Projects;
 using Pusula.InternManagement.Universities;
 using Pusula.InternManagement.UniversityDepartments;
+using Pusula.InternManagement.Web.Pages.Instructors;
 using Pusula.InternManagement.Web.Pages.Interns;
 using Volo.Abp.AutoMapper;
 using static Pusula.InternManagement.Web.Pages.Departments.CreateModalModel;
@@ -14,6 +16,8 @@ using static Pusula.InternManagement.Web.Pages.Educations.CreateModalModel;
 using static Pusula.InternManagement.Web.Pages.Educations.EditModalModel;
 using static Pusula.InternManagement.Web.Pages.Experiences.CreateModalModel;
 using static Pusula.InternManagement.Web.Pages.Experiences.EditModalModel;
+using static Pusula.InternManagement.Web.Pages.Instructors.CreateModalModel;
+using static Pusula.InternManagement.Web.Pages.Instructors.EditModalModel;
 using static Pusula.InternManagement.Web.Pages.Interns.CreateModalModel;
 using static Pusula.InternManagement.Web.Pages.Interns.EditModalModel;
 using static Pusula.InternManagement.Web.Pages.Projects.CreateModalModel;
@@ -59,8 +63,14 @@ public class InternManagementWebAutoMapperProfile : Profile
         CreateMap<ProjectDto, EditProjectViewModel>();
         CreateMap<EditProjectViewModel, UpdateProjectDto>();
 
+        CreateMap<CreateInstructorViewModel, CreateInstructorDto>();
+        CreateMap<InstructorDto, EditInstructorViewModel>();
+        CreateMap<EditInstructorViewModel, UpdateInstructorDto>();
+
 
         CreateMap<InternLookupDto, InternViewModel>().Ignore(x => x.IsSelected);
+        CreateMap<InstructorLookupDto, InstructorViewModel>().Ignore(x => x.IsSelected);
+
 
     }
 }
