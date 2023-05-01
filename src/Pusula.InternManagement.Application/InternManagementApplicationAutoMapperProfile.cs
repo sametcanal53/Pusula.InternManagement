@@ -8,6 +8,7 @@ using Pusula.InternManagement.Interns;
 using Pusula.InternManagement.Projects;
 using Pusula.InternManagement.Universities;
 using Pusula.InternManagement.UniversityDepartments;
+using Pusula.InternManagement.Works;
 
 namespace Pusula.InternManagement;
 
@@ -43,6 +44,8 @@ public class InternManagementApplicationAutoMapperProfile : Profile
 
         CreateMap<Course, CourseDto>();
         CreateMap<CourseWithDetails, CourseDto>();
+
+        CreateMap<Work, WorkDto>();
 
     }
 }

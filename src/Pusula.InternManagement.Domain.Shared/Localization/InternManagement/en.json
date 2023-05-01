@@ -186,6 +186,22 @@
     //"Name": "Name",
     //"Title": "Title",
 
+    //Works
+    "Permission:Works": "Works Management",
+    "Permission:Works.Create": "Creating new works",
+    "Permission:Works.Edit": "Editing the works",
+    "Permission:Works.Delete": "Deleting the works",
+    "Permission:Works.Admin": "Admin permission for the works",
+    "Menu:Works": "Works",
+    "Work": "Work",
+    "Works": "Works",
+    "WorkDeletionConfirmationMessage": "Are you sure to delete the work '{0}'?",
+    "NewWork": "New Work",
+    "EditWork": "Edit Work",
+    "WorkInformation": "Work Information",
+    //"Name": "Name",
+    //"Description": "Description",
+    "Date": "Date",
 
     //Exceptions
     "InternManagementException:0": "There is already a intern with the same name: {name}",

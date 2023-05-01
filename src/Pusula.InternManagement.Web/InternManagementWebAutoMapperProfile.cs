@@ -10,6 +10,7 @@ using Pusula.InternManagement.Universities;
 using Pusula.InternManagement.UniversityDepartments;
 using Pusula.InternManagement.Web.Pages.Instructors;
 using Pusula.InternManagement.Web.Pages.Interns;
+using Pusula.InternManagement.Works;
 using Volo.Abp.AutoMapper;
 using static Pusula.InternManagement.Web.Pages.Courses.CreateModalModel;
 using static Pusula.InternManagement.Web.Pages.Courses.EditModalModel;
@@ -29,6 +30,8 @@ using static Pusula.InternManagement.Web.Pages.Universities.CreateModalModel;
 using static Pusula.InternManagement.Web.Pages.Universities.EditModalModel;
 using static Pusula.InternManagement.Web.Pages.UniversityDepartments.CreateModalModel;
 using static Pusula.InternManagement.Web.Pages.UniversityDepartments.EditModalModel;
+using static Pusula.InternManagement.Web.Pages.Works.CreateModalModel;
+using static Pusula.InternManagement.Web.Pages.Works.EditModalModel;
 
 namespace Pusula.InternManagement.Web;
 
@@ -77,6 +80,9 @@ public class InternManagementWebAutoMapperProfile : Profile
         CreateMap<InternLookupDto, InternViewModel>().Ignore(x => x.IsSelected);
         CreateMap<InstructorLookupDto, InstructorViewModel>().Ignore(x => x.IsSelected);
 
+        CreateMap<CreateWorkViewModel, CreateWorkDto>();
+        CreateMap<WorkDto, EditWorkViewModel>();
+        CreateMap<EditWorkViewModel, UpdateWorkDto>();
 
     }
 }
