@@ -1,6 +1,7 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Pusula.InternManagement.Departments;
 using Pusula.InternManagement.Educations;
+using Pusula.InternManagement.Experiences;
 using Pusula.InternManagement.Interns;
 using Pusula.InternManagement.Universities;
 using Pusula.InternManagement.UniversityDepartments;
@@ -63,6 +64,8 @@ public class InternManagementDbContext :
     public DbSet<Education> Educations { get; set; }
     public DbSet<University> Universities { get; set; }
     public DbSet<UniversityDepartment> UniversityDepartments { get; set; }
+    public DbSet<Experience> Experiences { get; set; }
+
 
     public InternManagementDbContext(DbContextOptions<InternManagementDbContext> options)
         : base(options)
@@ -142,5 +145,17 @@ public class InternManagementDbContext :
             b.Property(x => x.Name).IsRequired().HasMaxLength(UniversityDepartmentConsts.MaxNameLength);
         });
 
+        builder.Entity<Experience>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Experiences",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(ExperienceConsts.MaxNameLength);
+            b.Property(x => x.Description).IsRequired().HasMaxLength(ExperienceConsts.MaxCompanyNameLength);
+            b.Property(x => x.Title).IsRequired().HasMaxLength(ExperienceConsts.MaxTitleLength);
+            b.Property(x => x.CompanyName).IsRequired().HasMaxLength(ExperienceConsts.MaxCompanyNameLength);
+
+            b.HasOne<Intern>().WithMany().HasForeignKey(x => x.InternId).IsRequired();
+        });
     }
 }

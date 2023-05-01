@@ -70,6 +70,12 @@ public class InternManagementMenuContributor : IMenuContributor
                     l["Menu:UniversityDepartments"],
                     url: "/UniversityDepartments"
                 ).RequirePermissions(InternManagementPermissions.UniversityDepartments.Default)
+            ).AddItem(
+                new ApplicationMenuItem(
+                    "InternManagement.Experiences",
+                    l["Menu:Experiences"],
+                    url: "/Experiences"
+                ).RequirePermissions(InternManagementPermissions.Experiences.Default)
             )
         );
 
