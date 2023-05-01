@@ -1,0 +1,26 @@
+﻿@page
+@using Microsoft.Extensions.Localization;
+@using Pusula.InternManagement.Localization;
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
+@model Pusula.InternManagement.Web.Pages.Departments.CreateModalModel
+@inject IStringLocalizer<InternManagementResource> L
+@{
+    Layout = null;
+}
+
+<form method="post" id="CreateDepartmentModal" asp-page="/Departments/CreateModal">
+    <abp-modal>
+        <abp-modal-header title="@L["NewDepartment"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-tabs name="create-department-modal-tabs">
+                <abp-tab title="@L["Department"]" class="mt-3">
+                    <div id="department-information-wrapper">
+                        <abp-input asp-for="Department.Name" label="@L["Name"]" />
+                    </div>
+                </abp-tab>
+            </abp-tabs>
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>
+

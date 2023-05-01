@@ -1,6 +1,8 @@
 ﻿using System.Threading.Tasks;
 using Pusula.InternManagement.Localization;
 using Pusula.InternManagement.MultiTenancy;
+using Pusula.InternManagement.Permissions;
+using Volo.Abp.Authorization.Permissions;
 using Volo.Abp.Identity.Web.Navigation;
 using Volo.Abp.SettingManagement.Web.Navigation;
 using Volo.Abp.TenantManagement.Web.Navigation;
@@ -31,6 +33,20 @@ public class InternManagementMenuContributor : IMenuContributor
                 "~/",
                 icon: "fas fa-home",
                 order: 0
+            )
+        );
+
+        context.Menu.AddItem(
+             new ApplicationMenuItem(
+                "ListController",
+                l["Menu:ListController"],
+                icon: "fa fa-list"
+            ).AddItem(
+                new ApplicationMenuItem(
+                    "InternManagement.Departments",
+                    l["Menu:Departments"],
+                    url: "/Departments"
+                ).RequirePermissions(InternManagementPermissions.Departments.Default)
             )
         );
 

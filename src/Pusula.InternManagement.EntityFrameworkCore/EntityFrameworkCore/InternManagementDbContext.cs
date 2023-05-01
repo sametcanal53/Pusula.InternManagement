@@ -1,9 +1,11 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Pusula.InternManagement.Departments;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -52,6 +54,7 @@ public class InternManagementDbContext :
 
     #endregion
 
+    public DbSet<Department> Departments { get; set; }
     public InternManagementDbContext(DbContextOptions<InternManagementDbContext> options)
         : base(options)
     {
@@ -81,5 +84,16 @@ public class InternManagementDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+
+
+        builder.Entity<Department>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Departments",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(DepartmentConsts.MaxNameLength);
+
+            b.HasIndex(x => x.Name);
+        });
     }
 }

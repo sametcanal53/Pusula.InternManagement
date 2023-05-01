@@ -3,6 +3,49 @@
   "texts": {
     "Menu:Home": "Home",
     "Welcome": "Welcome",
-    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io."
+    "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
+    // Menu
+    "Menu:InternManagement": "Intern Management",
+    "Permission:InternManagementAdminPermissions": "Intern Management Admin Permissions",
+    "Permission:InternManagement": "Intern Management",
+    "CreatorId": "Creator Id",
+    "CreationTime": "Creation Time",
+    "LastModifierId": "Last Modifier Id",
+    "LastModificationTime": "Last Modification Time",
+    "Menu:Interns": "Interns",
+    "Menu:ListController": "List Controller",
+    "ListController": "List Controller",
+    "Actions": "Actions",
+    "Close": "Close",
+    "Delete": "Delete",
+    "Edit": "Edit",
+    "AreYouSure": "Are you sure?",
+    "AreYouSureToDelete": "Are you sure you want to delete this item?",
+    "InternDeletionConfirmationMessage": "Are you sure to delete the intern '{0}'?",
+    "SuccessfullyDeleted": "Successfully deleted!",
+    "IsDeleted": "Is Deleted ?",
+    "DeleterId": "Deleter Id",
+    "DeletionTime": "Deletion Time",
+
+
+    //Departments
+    "Permission:Departments": "Departments Management",
+    "Permission:Departments.Create": "Creating new departments",
+    "Permission:Departments.Edit": "Editing the departments",
+    "Permission:Departments.Delete": "Deleting the departments",
+    "Permission:Departments.Admin": "Admin permission for the departments",
+    "Menu:Departments": "Departments",
+    "Departments": "Departments",
+    "DepartmentDeletionConfirmationMessage": "Are you sure to delete the department '{0}'?",
+    "NewDepartment": "New Department",
+    "EditDepartment": "Edit Department",
+    "DepartmentId": "Department id",
+    "Department": "Department",
+
+
+    //Exceptions
+    "InternManagementException:1": "There is already a department with the same name: {name}"
+
+
   }
 }
