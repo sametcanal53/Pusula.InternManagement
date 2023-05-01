@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using Pusula.InternManagement.Departments;
+using Pusula.InternManagement.Educations;
 using Pusula.InternManagement.Interns;
 using Pusula.InternManagement.Universities;
 using Pusula.InternManagement.UniversityDepartments;
@@ -20,11 +21,14 @@ public class InternManagementApplicationAutoMapperProfile : Profile
         CreateMap<Intern, InternDto>();
         CreateMap<Intern, InternLookupDto>();
 
-        CreateMap<UniversityDepartment, UniversityDepartmentDto>();
-        CreateMap<UniversityDepartment, UniversityDepartmentLookupDto>();
+        CreateMap<Education, EducationDto>();
 
         CreateMap<University, UniversityDto>();
         CreateMap<University, UniversityLookupDto>();
+        
+        CreateMap<UniversityDepartment, UniversityDepartmentDto>();
+        CreateMap<UniversityDepartment, UniversityDepartmentLookupDto>();
 
+        
     }
 }

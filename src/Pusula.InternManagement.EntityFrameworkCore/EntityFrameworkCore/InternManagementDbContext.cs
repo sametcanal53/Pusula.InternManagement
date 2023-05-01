@@ -1,5 +1,6 @@
 ﻿using Microsoft.EntityFrameworkCore;
 using Pusula.InternManagement.Departments;
+using Pusula.InternManagement.Educations;
 using Pusula.InternManagement.Interns;
 using Pusula.InternManagement.Universities;
 using Pusula.InternManagement.UniversityDepartments;
@@ -59,6 +60,7 @@ public class InternManagementDbContext :
 
     public DbSet<Intern> Interns { get; set; }
     public DbSet<Department> Departments { get; set; }
+    public DbSet<Education> Educations { get; set; }
     public DbSet<University> Universities { get; set; }
     public DbSet<UniversityDepartment> UniversityDepartments { get; set; }
 
@@ -110,6 +112,18 @@ public class InternManagementDbContext :
             b.Property(x => x.Name).IsRequired().HasMaxLength(DepartmentConsts.MaxNameLength);
 
             b.HasIndex(x => x.Name);
+        });
+
+        builder.Entity<Education>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Educations",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(EducationConsts.MaxNameLength);
+
+            b.HasOne<University>().WithMany().HasForeignKey(x => x.UniversityId).IsRequired();
+            b.HasOne<UniversityDepartment>().WithMany().HasForeignKey(x => x.UniversityDepartmentId).IsRequired();
+            b.HasOne<Intern>().WithMany().HasForeignKey(x => x.InternId).IsRequired();
         });
 
         builder.Entity<University>(b =>
