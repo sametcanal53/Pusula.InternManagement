@@ -203,6 +203,20 @@
     //"Description": "Description",
     "Date": "Date",
 
+    //Files
+    "Permission:Files": "Files Management",
+    "Permission:Files.Create": "Creating new files",
+    "Permission:Files.Delete": "Deleting the files",
+    "Permission:Files.Admin": "Admin permission for the files",
+    "Menu:Files": "Files",
+    "File": "File",
+    "Files": "Files",
+    "FileDeletionConfirmationMessage": "Are you sure to delete the file '{0}'?",
+    "NewFile": "New File",
+    "FileInformation": "File Information",
+    "FileUpload": "File Upload",
+    //"Name": "Name",
+
     //Exceptions
     "InternManagementException:0": "There is already a intern with the same name: {name}",
     "InternManagementException:1": "There is already a department with the same name: {name}",
@@ -213,8 +227,9 @@
     "InternManagementException:6": "There is already a project with the same name: {name}",
     "InternManagementException:7": "There is already a course with the same name: {name}",
     "InternManagementException:8": "There is already a instructor with the same name: {name}",
-
+    "InternManagementException:9": "The file extension is not supported. Please upload a {fileType} file.",
+    "InternManagementException:10": "There is already a file with the same name: {name}",
+    "InternManagementException:11": "File not found, check filename: {name}",
     "InternManagementException:12": "End date cannot be before the start date."
-
   }
 }

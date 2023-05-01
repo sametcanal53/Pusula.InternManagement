@@ -37,6 +37,7 @@ using Volo.Abp.UI.Navigation.Urls;
 using Volo.Abp.UI;
 using Volo.Abp.UI.Navigation;
 using Volo.Abp.VirtualFileSystem;
+using Volo.Abp.BlobStoring.Azure;
 
 namespace Pusula.InternManagement.Web;
 
@@ -53,7 +54,8 @@ namespace Pusula.InternManagement.Web;
     typeof(AbpAspNetCoreSerilogModule),
     typeof(AbpSwashbuckleModule)
     )]
-public class InternManagementWebModule : AbpModule
+[DependsOn(typeof(AbpBlobStoringAzureModule))]
+    public class InternManagementWebModule : AbpModule
 {
     public override void PreConfigureServices(ServiceConfigurationContext context)
     {

@@ -96,4 +96,12 @@ public static class InternManagementPermissions
         public const string Admin = Default + ".Admin";
     }
 
+    public static class Files
+    {
+        public const string Default = GroupName + ".Files";
+        public const string Create = Default + ".Create";
+        public const string Delete = Default + ".Delete";
+        public const string Admin = Default + ".Admin";
+    }
+
 }

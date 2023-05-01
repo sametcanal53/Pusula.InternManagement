@@ -13,7 +13,9 @@ public static class InternManagementDomainErrorCodes
     public const string ProjectNameAlreadyExists = "InternManagementException:6";
     public const string CourseNameAlreadyExists = "InternManagementException:7";
     public const string InstructorNameAlreadyExists = "InternManagementException:8";
-
+    public const string InvalidFileType = "InternManagementException:9";
+    public const string FileNameAlreadyExists = "InternManagementException:10";
+    public const string FileNotFound = "InternManagementException:11";
     public const string DateInputError = "InternManagementException:12";
 
 }

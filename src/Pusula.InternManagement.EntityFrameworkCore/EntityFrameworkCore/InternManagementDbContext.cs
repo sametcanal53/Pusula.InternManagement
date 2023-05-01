@@ -3,6 +3,7 @@ using Pusula.InternManagement.Courses;
 using Pusula.InternManagement.Departments;
 using Pusula.InternManagement.Educations;
 using Pusula.InternManagement.Experiences;
+using Pusula.InternManagement.Files;
 using Pusula.InternManagement.Instructors;
 using Pusula.InternManagement.Interns;
 using Pusula.InternManagement.Projects;
@@ -75,7 +76,7 @@ public class InternManagementDbContext :
     public DbSet<Instructor> Instructors { get; set; }
     public DbSet<CourseIntern> CourseInterns { get; set; }
     public DbSet<CourseInstructor> CourseInstructors { get; set; }
-
+    public DbSet<File> Files { get; set; }
     public DbSet<Work> Works { get; set; }
     public InternManagementDbContext(DbContextOptions<InternManagementDbContext> options)
         : base(options)
@@ -238,6 +239,16 @@ public class InternManagementDbContext :
             b.HasOne<Instructor>().WithMany().HasForeignKey(x => x.InstructorId).IsRequired();
 
             b.HasIndex(x => new { x.CourseId, x.InstructorId });
+        });
+        
+        builder.Entity<File>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Files",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(FileConsts.MaxNameLength);
+
+            b.HasOne<Intern>().WithMany().HasForeignKey(x => x.InternId).IsRequired();
         });
 
         builder.Entity<Work>(b =>
