@@ -1,0 +1,26 @@
+﻿@page
+@using Microsoft.Extensions.Localization;
+@using Pusula.InternManagement.Localization;
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
+@model Pusula.InternManagement.Web.Pages.UniversityDepartments.EditModalModel
+@inject IStringLocalizer<InternManagementResource> L
+@{
+    Layout = null;
+}
+
+<form method="post" id="EditUniversityDepartmentModal" asp-page="/UniversityDepartments/EditModal">
+    <abp-modal>
+        <abp-modal-header title="@L["EditUniversityDepartment"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-tabs name="edit-university-department-modal-tabs">
+                <abp-tab title="@L["UniversityDepartment"]" class="mt-3">
+                    <div id="university-department-information-wrapper">
+                        <abp-input asp-for="UniversityDepartment.Id" />
+                        <abp-input asp-for="UniversityDepartment.Name" label="@L["Name"]" />
+                    </div>
+                </abp-tab>
+            </abp-tabs>
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

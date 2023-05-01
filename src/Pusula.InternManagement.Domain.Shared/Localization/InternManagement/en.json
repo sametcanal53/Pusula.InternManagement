@@ -63,6 +63,21 @@
     "DepartmentId": "Department id",
     "Department": "Department",
 
+    //University Departments
+    "Permission:UniversityDepartments": "University Department Management",
+    "Permission:UniversityDepartments.Create": "Creating new university departments",
+    "Permission:UniversityDepartments.Edit": "Editing the university departments",
+    "Permission:UniversityDepartments.Delete": "Deleting the university departments",
+    "Permission:UniversityDepartments.Admin": "Admin permission for the university departments",
+    "Menu:UniversityDepartments": "University Departments",
+    "UniversityDepartment": "University Department",
+    "UniversityDepartments": "University Departments",
+    "UniversityDepartmentDeletionConfirmationMessage": "Are you sure to delete the university department '{0}'?",
+    "NewUniversityDepartment": "New University Department",
+    "EditUniversityDepartment": "Edit University Department",
+    "UniversityDepartmentId": "University Department Id",
+    "UniversityDepartmentName": "University Department Name",
+
 
     //Exceptions
     "InternManagementException:0": "There is already a intern with the same name: {name}",

@@ -22,13 +22,16 @@ public class InternManagementPermissionDefinitionProvider : PermissionDefinition
         departmentsPermission.AddChild(InternManagementPermissions.Departments.Edit, L("Permission:Departments.Edit"));
         departmentsPermission.AddChild(InternManagementPermissions.Departments.Delete, L("Permission:Departments.Delete"));
 
-
-
+        var universityDepartmentsPermission = group.AddPermission(InternManagementPermissions.UniversityDepartments.Default, L("Permission:UniversityDepartments"));
+        universityDepartmentsPermission.AddChild(InternManagementPermissions.UniversityDepartments.Create, L("Permission:UniversityDepartments.Create"));
+        universityDepartmentsPermission.AddChild(InternManagementPermissions.UniversityDepartments.Edit, L("Permission:UniversityDepartments.Edit"));
+        universityDepartmentsPermission.AddChild(InternManagementPermissions.UniversityDepartments.Delete, L("Permission:UniversityDepartments.Delete"));
 
         var adminGroup = context.AddGroup("", L("Permission:InternManagementAdminPermissions"));
         var adminPermissions = adminGroup.AddPermission("Admin Permissions", L("Permission:InternManagementAdminPermissions"));
         adminPermissions.AddChild(InternManagementPermissions.Interns.Admin, L("Permission:Interns.Admin"));
         adminPermissions.AddChild(InternManagementPermissions.Departments.Admin, L("Permission:Departments.Admin"));
+        adminPermissions.AddChild(InternManagementPermissions.UniversityDepartments.Admin, L("Permission:UniversityDepartments.Admin"));
 
     }
 
