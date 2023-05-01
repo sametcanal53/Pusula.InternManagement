@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Pusula.InternManagement.Courses;
 using Pusula.InternManagement.Departments;
 using Pusula.InternManagement.Educations;
 using Pusula.InternManagement.Experiences;
@@ -68,9 +69,11 @@ public class InternManagementDbContext :
     public DbSet<UniversityDepartment> UniversityDepartments { get; set; }
     public DbSet<Experience> Experiences { get; set; }
     public DbSet<Project> Projects { get; set; }
-    public DbSet<InternProject> InternProjects { get; set; }
-
+    public DbSet<ProjectIntern> ProjectInterns { get; set; }
+    public DbSet<Course> Courses { get; set; }
     public DbSet<Instructor> Instructors { get; set; }
+    public DbSet<CourseIntern> CourseInterns { get; set; }
+    public DbSet<CourseInstructor> CourseInstructors { get; set; }
 
 
     public InternManagementDbContext(DbContextOptions<InternManagementDbContext> options)
@@ -175,18 +178,30 @@ public class InternManagementDbContext :
             b.HasMany(x => x.Interns).WithOne().HasForeignKey(x => x.ProjectId).IsRequired();
         });
 
-        builder.Entity<InternProject>(b =>
+        builder.Entity<ProjectIntern>(b =>
         {
-            b.ToTable(InternManagementConsts.DbTablePrefix + "InternProjects",
+            b.ToTable(InternManagementConsts.DbTablePrefix + "ProjectInterns",
                 InternManagementConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
 
             b.HasKey(x => new { x.ProjectId, x.InternId });
+            b.HasOne<Intern>().WithMany().HasForeignKey(x => x.InternId).IsRequired(); 
             b.HasOne<Project>().WithMany(x => x.Interns).HasForeignKey(x => x.ProjectId).IsRequired();
-            b.HasOne<Intern>().WithMany().HasForeignKey(x => x.InternId).IsRequired();
+            
 
             b.HasIndex(x => new { x.ProjectId, x.InternId });
 
+        });
+
+        builder.Entity<Course>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Courses",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(CourseConsts.MaxNameLength);
+
+            b.HasMany(x => x.Interns).WithOne().HasForeignKey(x => x.CourseId).IsRequired();
+            b.HasMany(x => x.Instructors).WithOne().HasForeignKey(x => x.InstructorId).IsRequired();
         });
 
         builder.Entity<Instructor>(b =>
@@ -196,6 +211,32 @@ public class InternManagementDbContext :
             b.ConfigureByConvention(); //auto configure for the base class props
             b.Property(x => x.Name).IsRequired().HasMaxLength(InstructorConsts.MaxNameLength);
             b.Property(x => x.Title).IsRequired().HasMaxLength(InstructorConsts.MaxTitleLength);
+        });
+
+        builder.Entity<CourseIntern>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "CourseInterns",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+
+            b.HasKey(x => new { x.CourseId, x.InternId });
+            b.HasOne<Course>().WithMany(x => x.Interns).HasForeignKey(x => x.CourseId).IsRequired();
+            b.HasOne<Intern>().WithMany().HasForeignKey(x => x.InternId).IsRequired();
+
+            b.HasIndex(x => new { x.CourseId, x.InternId });
+        });
+
+        builder.Entity<CourseInstructor>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "CourseInstructors",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+
+            b.HasKey(x => new { x.CourseId, x.InstructorId });
+            b.HasOne<Course>().WithMany(x => x.Instructors).HasForeignKey(x => x.CourseId).IsRequired();
+            b.HasOne<Instructor>().WithMany().HasForeignKey(x => x.InstructorId).IsRequired();
+
+            b.HasIndex(x => new { x.CourseId, x.InstructorId });
         });
 
 

@@ -77,9 +77,9 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Projects
                     IsDeleted = x.IsDeleted,
                     DeleterId = x.DeleterId,
                     DeletionTime = x.DeletionTime,
-                    Interns = (from internProjects in x.Interns
+                    Interns = (from projectInterns in x.Interns
                                join intern in dbContext.Set<Intern>()
-                               on internProjects.InternId equals intern.Id
+                               on projectInterns.InternId equals intern.Id
                                select intern.Name).ToList()
                 });
         }

@@ -7,12 +7,12 @@ using Volo.Abp.Domain.Entities;
 
 namespace Pusula.InternManagement.Projects
 {
-    public class InternProject : Entity
+    public class ProjectIntern : Entity
     {
         public Guid ProjectId { get; set; }
         public Guid InternId { get; set; }
 
-        public InternProject(Guid projectId, Guid internId)
+        public ProjectIntern(Guid projectId, Guid internId)
         {
             ProjectId = projectId;
             InternId = internId;

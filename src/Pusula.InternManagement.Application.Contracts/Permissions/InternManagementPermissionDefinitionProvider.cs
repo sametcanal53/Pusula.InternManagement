@@ -52,6 +52,10 @@ public class InternManagementPermissionDefinitionProvider : PermissionDefinition
         instructorsPermissions.AddChild(InternManagementPermissions.Instructors.Edit, L("Permission:Instructors.Edit"));
         instructorsPermissions.AddChild(InternManagementPermissions.Instructors.Delete, L("Permission:Instructors.Delete"));
 
+        var coursesPermissions = group.AddPermission(InternManagementPermissions.Courses.Default, L("Permission:Courses"));
+        coursesPermissions.AddChild(InternManagementPermissions.Courses.Create, L("Permission:Courses.Create"));
+        coursesPermissions.AddChild(InternManagementPermissions.Courses.Edit, L("Permission:Courses.Edit"));
+        coursesPermissions.AddChild(InternManagementPermissions.Courses.Delete, L("Permission:Courses.Delete"));
 
         var adminGroup = context.AddGroup("", L("Permission:InternManagementAdminPermissions"));
         var adminPermissions = adminGroup.AddPermission("Admin Permissions", L("Permission:InternManagementAdminPermissions"));
@@ -62,8 +66,8 @@ public class InternManagementPermissionDefinitionProvider : PermissionDefinition
         adminPermissions.AddChild(InternManagementPermissions.UniversityDepartments.Admin, L("Permission:UniversityDepartments.Admin"));
         adminPermissions.AddChild(InternManagementPermissions.Experiences.Admin, L("Permission:Experiences.Admin"));
         adminPermissions.AddChild(InternManagementPermissions.Projects.Admin, L("Permission:Projects.Admin"));
-       
         adminPermissions.AddChild(InternManagementPermissions.Instructors.Admin, L("Permission:Instructors.Admin"));
+        adminPermissions.AddChild(InternManagementPermissions.Courses.Admin, L("Permission:Courses.Admin"));
 
     }
 

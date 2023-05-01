@@ -1,4 +1,5 @@
 ﻿using AutoMapper;
+using Pusula.InternManagement.Courses;
 using Pusula.InternManagement.Departments;
 using Pusula.InternManagement.Educations;
 using Pusula.InternManagement.Experiences;
@@ -40,6 +41,8 @@ public class InternManagementApplicationAutoMapperProfile : Profile
         CreateMap<Instructor, InstructorDto>();
         CreateMap<Instructor, InstructorLookupDto>();
 
+        CreateMap<Course, CourseDto>();
+        CreateMap<CourseWithDetails, CourseDto>();
 
     }
 }

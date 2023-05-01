@@ -17,7 +17,7 @@ namespace Pusula.InternManagement.Projects
         public string Description { get; private set; }
         public DateTime StartDate { get; private set; }
         public DateTime EndDate { get; private set; }
-        public ICollection<InternProject> Interns { get; private set; }
+        public ICollection<ProjectIntern> Interns { get; private set; }
         public Project() { }
         public Project(Guid id, string name, string description, DateTime startDate, DateTime endDate) : base(id)
         {
@@ -26,7 +26,7 @@ namespace Pusula.InternManagement.Projects
             SetStartDate(startDate);
             SetEndDate(endDate);
 
-            Interns = new Collection<InternProject>();
+            Interns = new Collection<ProjectIntern>();
         }
 
         public void SetName(string name)
@@ -61,7 +61,7 @@ namespace Pusula.InternManagement.Projects
                 return;
             }
 
-            Interns.Add(new InternProject(projectId: Id, internId: internId));
+            Interns.Add(new ProjectIntern(projectId: Id, internId: internId));
         }
 
         public void RemoveIntern(Guid internId)
