@@ -9,6 +9,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
+using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
 
 namespace Pusula.InternManagement.Interns
@@ -162,6 +163,21 @@ namespace Pusula.InternManagement.Interns
             // Return a ListResultDto containing the list of mapped DepartmentLookupDto objects
             return new ListResultDto<DepartmentLookupDto>(
                 ObjectMapper.Map<List<Department>, List<DepartmentLookupDto>>(departments));
+        }
+
+        public async Task<InternWithDetailsDto> GetInternWithDetailsAsync(Guid id)
+        {
+            var intern = await _internRepository.GetInternAsync(id);
+
+            if (intern == null)
+            {
+                // throw a custom exception indicating that the intern was not found
+                throw new EntityNotFoundException("Intern not found.");
+            }
+
+            // map the Intern entity to the InternDto object using AutoMapper
+            return ObjectMapper.Map<InternWithDetails,InternWithDetailsDto>(intern);
+
         }
     }
 }

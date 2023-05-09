@@ -117,8 +117,8 @@ namespace Pusula.InternManagement.Educations
         {
             Log.Logger.Information($"Creating education");
 
-            // Convert the GPA (grade point average) from a 4.0 scale to a 100-point scale, if necessary
-            var gradePointAverage = input.GradePointAverage <= 4.00 ? input.GradePointAverage * 25 : input.GradePointAverage;
+            // Convert the GPA (grade point average) from a 100-point scale to a 4.0 scale, if necessary
+            var gradePointAverage = input.GradePointAverage >= 4.00 ? input.GradePointAverage / 25 : input.GradePointAverage;
 
             // Check if a education with the same name already exists in the repository
             var existsEducation = await _educationRepository.FindByNameAsync(input.Name);
@@ -142,8 +142,8 @@ namespace Pusula.InternManagement.Educations
         {
             Log.Logger.Information($"Updating education with ID {id}");
 
-            // Convert the GPA (grade point average) from a 4.0 scale to a 100-point scale, if necessary
-            var gradePointAverage = input.GradePointAverage <= 4.00 ? input.GradePointAverage * 25 : input.GradePointAverage;
+            // Convert the GPA (grade point average) from a 100-point scale to a 4.0 scale, if necessary
+            var gradePointAverage = input.GradePointAverage >= 4.00 ? input.GradePointAverage / 25 : input.GradePointAverage;
 
             // Get the education entity with the given ID from the repository
             var education = await _educationRepository.GetAsync(id);

@@ -35,6 +35,7 @@ public class InternManagementMenuContributor : IMenuContributor
                 order: 0
             )
         );
+
         context.Menu.AddItem(
             new ApplicationMenuItem(
                 "InternManagement",
@@ -45,6 +46,7 @@ public class InternManagementMenuContributor : IMenuContributor
                     "InternManagement.Interns",
                     l["Menu:Interns"],
                     url: "/Interns"
+                    
                 ).RequirePermissions(InternManagementPermissions.Interns.Default)
             ).AddItem(
                 new ApplicationMenuItem(

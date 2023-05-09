@@ -144,9 +144,9 @@ namespace Pusula.InternManagement
             var itu = await _universityRepository.InsertAsync(new University(_guidGenerator.Create(), "İstanbul Teknik University"), autoSave: true);
 
             // New Education
-            await _educationRepository.InsertAsync(new Education(_guidGenerator.Create(), nu.Id, ce.Id, intern1.Id, "Education-1", Grade.University_1, 95.04f, new DateTime(2019, 7, 5), new DateTime(2023, 6, 9)), autoSave: true);
-            await _educationRepository.InsertAsync(new Education(_guidGenerator.Create(), nu.Id, ba.Id, intern2.Id, "Education-2", Grade.University_2, 85.74f, new DateTime(2015, 1, 7), new DateTime(2018, 3, 11)), autoSave: true);
-            await _educationRepository.InsertAsync(new Education(_guidGenerator.Create(), iu.Id, ba.Id, intern1.Id, "Education-3", Grade.MasterDegree, 72.74f, new DateTime(2019, 1, 1), new DateTime(2025, 1, 27)), autoSave: true);
+            await _educationRepository.InsertAsync(new Education(_guidGenerator.Create(), nu.Id, ce.Id, intern1.Id, "Education-1", Grade.University_1, 3.85f, new DateTime(2019, 7, 5), new DateTime(2023, 6, 9)), autoSave: true);
+            await _educationRepository.InsertAsync(new Education(_guidGenerator.Create(), nu.Id, ba.Id, intern2.Id, "Education-2", Grade.University_2, 2.15f, new DateTime(2015, 1, 7), new DateTime(2018, 3, 11)), autoSave: true);
+            await _educationRepository.InsertAsync(new Education(_guidGenerator.Create(), iu.Id, ba.Id, intern1.Id, "Education-3", Grade.MasterDegree, 1.99f, new DateTime(2019, 1, 1), new DateTime(2025, 1, 27)), autoSave: true);
 
             // New Project
             var project1 = await _projectRepository.InsertAsync(

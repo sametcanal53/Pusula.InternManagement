@@ -19,7 +19,7 @@ namespace Pusula.InternManagement.Controllers
 
         // Action to download a file by name
         [HttpGet]
-        [Route("download/{id}/{fileName}")]
+        [Route("api/app/file/download/{id}/{fileName}")]
         public async Task<IActionResult> DownloadAsync(Guid id, string fileName)
         {
             // Call the file app service to get the file content

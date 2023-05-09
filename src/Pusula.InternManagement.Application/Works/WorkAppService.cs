@@ -1,4 +1,5 @@
 ﻿using Microsoft.AspNetCore.Authorization;
+using Pusula.InternManagement.Exceptions;
 using Pusula.InternManagement.Interns;
 using Pusula.InternManagement.Permissions;
 using Serilog;
@@ -9,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
+using static Pusula.InternManagement.Permissions.InternManagementPermissions;
 
 namespace Pusula.InternManagement.Works
 {
@@ -93,6 +95,13 @@ namespace Pusula.InternManagement.Works
         {
             Log.Logger.Information($"Creating work");
 
+            // Check if the input date is outside of the intern's start and end dates
+            var intern = await _internRepository.GetAsync(input.InternId);
+            if (input.Date > intern.EndDate || input.Date < intern.StartDate)
+            {
+                throw new DateInputException();
+            }
+
             // Insert the new work entity into the repository
             var work = await _workRepository.InsertAsync(
                 new Work(
@@ -115,6 +124,13 @@ namespace Pusula.InternManagement.Works
             Log.Logger.Information($"Updating work with ID {id}");
             // Get the work entity with the given ID from the repository
             var work = await _workRepository.GetAsync(id);
+
+            // Check if the input date is outside of the intern's start and end dates
+            var intern = await _internRepository.GetAsync(input.InternId);
+            if (input.Date > intern.EndDate || input.Date < intern.StartDate)
+            {
+                throw new DateInputException();
+            }
 
             // Update the work entity with the input data
             work.SetName(input.Name);

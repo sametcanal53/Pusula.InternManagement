@@ -13,5 +13,6 @@ namespace Pusula.InternManagement.Interns
         // GetDepartmentLookupAsync method returns a list of departments for lookup purposes
         Task<ListResultDto<DepartmentLookupDto>> GetDepartmentLookupAsync();
 
+        Task<InternWithDetailsDto> GetInternWithDetailsAsync(Guid id);
     }
 }

@@ -3,6 +3,7 @@ using Pusula.InternManagement.Courses;
 using Pusula.InternManagement.Departments;
 using Pusula.InternManagement.Educations;
 using Pusula.InternManagement.Experiences;
+using Pusula.InternManagement.Files;
 using Pusula.InternManagement.Instructors;
 using Pusula.InternManagement.Interns;
 using Pusula.InternManagement.Projects;
@@ -24,6 +25,7 @@ using static Pusula.InternManagement.Web.Pages.Instructors.CreateModalModel;
 using static Pusula.InternManagement.Web.Pages.Instructors.EditModalModel;
 using static Pusula.InternManagement.Web.Pages.Interns.CreateModalModel;
 using static Pusula.InternManagement.Web.Pages.Interns.EditModalModel;
+using static Pusula.InternManagement.Web.Pages.Interns.InternModel;
 using static Pusula.InternManagement.Web.Pages.Projects.CreateModalModel;
 using static Pusula.InternManagement.Web.Pages.Projects.EditModalModel;
 using static Pusula.InternManagement.Web.Pages.Universities.CreateModalModel;
@@ -84,5 +86,14 @@ public class InternManagementWebAutoMapperProfile : Profile
         CreateMap<WorkDto, EditWorkViewModel>();
         CreateMap<EditWorkViewModel, UpdateWorkDto>();
 
+        CreateMap<InternWithDetailsDto, GetInternWithDetails>();
+
+
+        CreateMap<FileDto, File>();
+        CreateMap<CourseDto, Course>();
+        CreateMap<EducationDto, Education>();
+        CreateMap<ExperienceDto, Experience>();
+        CreateMap<WorkDto, Work>();
+        CreateMap<ProjectDto, Project>();
     }
 }

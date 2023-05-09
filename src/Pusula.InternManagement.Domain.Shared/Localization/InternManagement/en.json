@@ -26,6 +26,10 @@
     "IsDeleted": "Is Deleted ?",
     "DeleterId": "Deleter Id",
     "DeletionTime": "Deletion Time",
+    "InternshipPeriod": "Internship Period",
+    "Contact": "Contact",
+    "Detail": "Detail",
+    "Week": "Week",
 
     // Interns
     "NewIntern": "New Intern",

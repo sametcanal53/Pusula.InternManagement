@@ -94,7 +94,10 @@ $(function () {
                 },
                 {
                     title: l('GradePointAverage'),
-                    data: "gradePointAverage"
+                    data: "gradePointAverage",
+                    render: function (data) {
+                        return Number(data).toFixed(2);
+                    }
                 },
                 {
                     title: l('StartDate'),

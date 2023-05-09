@@ -26,17 +26,20 @@ public class InternManagementApplicationAutoMapperProfile : Profile
 
         CreateMap<Intern, InternDto>();
         CreateMap<Intern, InternLookupDto>();
+        CreateMap<InternWithDetails, InternDto>();
+        CreateMap<InternWithDetails, InternWithDetailsDto>();
 
         CreateMap<Education, EducationDto>();
+        CreateMap<EducationDto,Education>();
 
         CreateMap<University, UniversityDto>();
         CreateMap<University, UniversityLookupDto>();
-        
+
         CreateMap<UniversityDepartment, UniversityDepartmentDto>();
         CreateMap<UniversityDepartment, UniversityDepartmentLookupDto>();
 
         CreateMap<Experience, ExperienceDto>();
-        
+
         CreateMap<Project, ProjectDto>();
         CreateMap<ProjectWithDetails, ProjectDto>();
 

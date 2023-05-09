@@ -1,3 +1,5 @@
+
+
 $(function () {
     var l = abp.localization.getResource('InternManagement');
     var createModal = new abp.ModalManager(abp.appPath + 'Interns/CreateModal');
@@ -22,6 +24,14 @@ $(function () {
                                     visible: abp.auth.isGranted('InternManagement.Interns.Edit'),
                                     action: function (data) {
                                         editModal.open({ id: data.record.id });
+                                    }
+                                },
+                                {
+                                    text: l('Detail'),
+                                    visible: abp.auth.isGranted('InternManagement.Interns.Admin'),
+                                    action: function (data) {
+                                        console.log(data.record.id);
+                                        //window.location.href = '/Interns/Intern?id=' + data.record.id;
                                     }
                                 },
                                 {
