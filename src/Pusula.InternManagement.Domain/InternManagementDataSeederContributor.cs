@@ -17,6 +17,7 @@ using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Guids;
+using Volo.Abp.Identity;
 
 namespace Pusula.InternManagement
 {
@@ -36,6 +37,8 @@ namespace Pusula.InternManagement
         private readonly IRepository<CourseIntern> _courseInternRepository;
         private readonly IRepository<CourseInstructor> _courseInstructorRepository;
         private readonly IWorkRepository _workRepository;
+        private readonly IdentityUserManager _identityUserManager;
+        private readonly IdentityRoleManager _identityRoleManager;
 
         public InternManagementDataSeederContributor(
             IGuidGenerator guidGenerator,
@@ -51,7 +54,9 @@ namespace Pusula.InternManagement
             IInstructorRepository instructorRepository,
             IRepository<CourseIntern> courseInternRepository,
             IRepository<CourseInstructor> courseInstructorRepository,
-            IWorkRepository workRepository)
+            IWorkRepository workRepository,
+            IdentityUserManager identityUserManager,
+            IdentityRoleManager identityRoleManager)
         {
             _guidGenerator = guidGenerator;
             _internRepository = internRepository;
@@ -67,11 +72,14 @@ namespace Pusula.InternManagement
             _courseInternRepository = courseInternRepository;
             _courseInstructorRepository = courseInstructorRepository;
             _workRepository = workRepository;
+            _identityUserManager = identityUserManager;
+            _identityRoleManager = identityRoleManager;
         }
 
         public async Task SeedAsync(DataSeedContext context)
         {
-
+            var role = new IdentityRole(_guidGenerator.Create(), "intern");
+            await _identityRoleManager.CreateAsync(role);
             // New Department
             var softwareDevelopment = await _departmentRepository.InsertAsync(new Department(_guidGenerator.Create(), "Software Development"), autoSave: true);
             var humanResource = await _departmentRepository.InsertAsync(new Department(_guidGenerator.Create(), "Human Resource"), autoSave: true);
@@ -82,9 +90,11 @@ namespace Pusula.InternManagement
                    new Intern(
                        _guidGenerator.Create(),
                        softwareDevelopment.Id,
-                       "Sametcan AL",
+                       "Sametcan",
+                       "AL",
                        "5393883197",
                        "sametcanal53@gmail.com",
+                       "1q2w3E*",
                        new DateTime(2023, 3, 6),
                        new DateTime(2023, 6, 9)), autoSave: true);
 
@@ -92,9 +102,11 @@ namespace Pusula.InternManagement
                     new Intern(
                        _guidGenerator.Create(),
                        humanResource.Id,
-                       "Yıldız Aksu",
+                       "Yıldız",
+                       "Aksu",
                        "5352215111",
                        "test@gmail.com",
+                       "1q2w3E*",
                        new DateTime(2010, 11, 5),
                        new DateTime(2023, 3, 30)), autoSave: true);
 
@@ -102,11 +114,19 @@ namespace Pusula.InternManagement
                     new Intern(
                        _guidGenerator.Create(),
                        softwareDevelopment.Id,
-                       "Ahmet Yılmaz",
+                       "Ahmet",
+                       "Yılmaz",
                        "5352451124",
                        "ahmet.yilmaz@gmail.com",
+                       "1q2w3E*",
                        new DateTime(2015, 9, 19),
                        new DateTime(2020, 12, 30)), autoSave: true);
+
+            await _identityUserManager.AddToRoleAsync(intern1, role.Name);
+            await _identityUserManager.AddToRoleAsync(intern2, role.Name);
+            await _identityUserManager.AddToRoleAsync(intern3, role.Name);
+
+
 
             // New Experience
             await _experienceRepository.InsertAsync(

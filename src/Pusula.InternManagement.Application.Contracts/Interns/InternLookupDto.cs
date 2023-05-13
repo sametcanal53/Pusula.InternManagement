@@ -9,6 +9,7 @@ namespace Pusula.InternManagement.Interns
     public class InternLookupDto : EntityDto<Guid>
     {
         public string Name { get; set; }
+        public string Surname { get; set; }
 
     }
 }

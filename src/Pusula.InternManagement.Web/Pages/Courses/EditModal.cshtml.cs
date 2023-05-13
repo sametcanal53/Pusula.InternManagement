@@ -52,7 +52,7 @@ namespace Pusula.InternManagement.Web.Pages.Courses
             if (Course.Interns != null && Course.Interns.Any())
             {
                 Interns
-                    .Where(x => Course.Interns.Contains(x.Name))
+                    .Where(x => Course.Interns.Contains($"{x.Name} {x.Surname}"))
                     .ToList()
                     .ForEach(x => x.IsSelected = true);
             }

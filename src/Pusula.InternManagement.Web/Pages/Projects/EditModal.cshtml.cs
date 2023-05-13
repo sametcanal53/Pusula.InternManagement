@@ -43,7 +43,7 @@ namespace Pusula.InternManagement.Web.Pages.Projects
             if (Project.Interns != null && Project.Interns.Any())
             {
                 Interns
-                    .Where(x => Project.Interns.Contains(x.Name))
+                    .Where(x => Project.Interns.Contains($"{x.Name} {x.Surname}"))
                     .ToList()
                     .ForEach(x => x.IsSelected = true);
             }

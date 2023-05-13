@@ -55,7 +55,7 @@ namespace Pusula.InternManagement.Works
                 Description = x.work.Description,
                 Date = x.work.Date,
                 InternId = x.intern.Id,
-                InternName = x.intern.Name,
+                InternName = $"{x.intern.Name} {x.intern.Surname}",
                 CreationTime = x.work.CreationTime,
                 CreatorId = x.work.CreatorId,
                 LastModifierId = x.work.LastModifierId,

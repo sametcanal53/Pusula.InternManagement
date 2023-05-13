@@ -38,7 +38,7 @@ namespace Pusula.InternManagement.Web.Pages.Experiences
             var internLookupDto = await _experienceAppService.GetInternLookupAsync();
             Interns = internLookupDto
                 .Items
-                .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+                .Select(x => new SelectListItem($"{x.Name} {x.Surname}", x.Id.ToString()))
                 .ToList();
         }
 

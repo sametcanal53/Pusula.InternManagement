@@ -37,7 +37,7 @@ namespace Pusula.InternManagement.Web.Pages.Works
             var internLookupDto = await _workAppService.GetInternLookupAsync();
             Interns = internLookupDto
                 .Items
-                .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+                .Select(x => new SelectListItem($"{x.Name} {x.Surname}", x.Id.ToString()))
                 .ToList();
         }
 

@@ -39,8 +39,9 @@ namespace Pusula.InternManagement.Web.Pages.Files
 
             // Retrieves a list of InternLookupDto objects from the application service, maps them to a list of SelectListItem objects, and assigns the result to the Interns property.
             var internLookupDto = await _fileAppService.GetInternLookupAsync();
-            Interns = internLookupDto.Items
-                .Select(x => new SelectListItem(x.Name, x.Id.ToString()))
+            Interns = internLookupDto
+                .Items
+                .Select(x => new SelectListItem($"{x.Name} {x.Surname}", x.Id.ToString()))
                 .ToList();
         }
 

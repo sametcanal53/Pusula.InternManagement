@@ -6,6 +6,7 @@ namespace Pusula.InternManagement.Interns
 {
     public class InternConsts
     {
-        public const int MaxNameLength = 128;
+        public const int MaxNameLength = 64;
+        public const int MaxSurnameLength = 64;
     }
 }

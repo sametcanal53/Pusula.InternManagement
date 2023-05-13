@@ -1,5 +1,3 @@
-
-
 $(function () {
     var l = abp.localization.getResource('InternManagement');
     var createModal = new abp.ModalManager(abp.appPath + 'Interns/CreateModal');
@@ -59,6 +57,10 @@ $(function () {
                 {
                     title: l('Name'),
                     data: "name"
+                },
+                {
+                    title: l('Surname'),
+                    data: "surname"
                 },
                 {
                     title: l('DepartmentId'),

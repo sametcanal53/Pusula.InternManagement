@@ -15,5 +15,8 @@ namespace Pusula.InternManagement.Web.Pages.Interns
         [Required]
         [HiddenInput]
         public string Name { get; set; }
+        [Required]
+        [HiddenInput]
+        public string Surname { get; set; }
     }
 }

@@ -81,7 +81,7 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Courses
                     Interns = (from courseInterns in x.Interns
                                join intern in dbContext.Set<Intern>()
                                on courseInterns.InternId equals intern.Id
-                               select intern.Name).ToList()
+                               select $"{intern.Name} {intern.Surname}").ToList()
                 });
         }
     }

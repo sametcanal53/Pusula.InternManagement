@@ -26,7 +26,8 @@
                         @for (var i = 0; i < Model.Interns.Count; i++)
                         {
                             var intern = Model.Interns[i];
-                            <abp-input abp-id-name="@Model.Interns[i].IsSelected" asp-for="@intern.IsSelected" label="@intern.Name" />
+                            var fullname = $"{intern.Name} {intern.Surname}";
+                            <abp-input abp-id-name="@Model.Interns[i].IsSelected" asp-for="@intern.IsSelected" label="@fullname" />
                             <input abp-id-name="@Model.Interns[i].Name" asp-for="@intern.Name" />
                         }
                     </div>

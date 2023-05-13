@@ -9,6 +9,6 @@ namespace Pusula.InternManagement.Instructors
     public class InstructorLookupDto : EntityDto<Guid>
     {
         public string Name { get; set; }
-
+        
     }
 }

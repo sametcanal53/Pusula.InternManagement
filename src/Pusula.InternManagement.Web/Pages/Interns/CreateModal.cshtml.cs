@@ -44,6 +44,8 @@ namespace Pusula.InternManagement.Web.Pages.Interns
         // Handles the HTTP POST request for this page.
         public async Task<IActionResult> OnPostAsync()
         {
+            Intern.UserName = Intern.Email.Split("@")[0];
+
             // Calls the application service to create a new intern, passing in a CreateInternDto object mapped from the Intern property.
             await _internAppService.CreateAsync(
                 ObjectMapper.Map<CreateInternViewModel, CreateInternDto>(Intern));
@@ -54,15 +56,24 @@ namespace Pusula.InternManagement.Web.Pages.Interns
 
         public class CreateInternViewModel
         {
+            public string UserName { get; set; }
+
             [Required]
             [StringLength(InternConsts.MaxNameLength)]
             public string Name { get; set; }
+            [Required]
+            [StringLength(InternConsts.MaxSurnameLength)]
+            public string Surname { get; set; }
             [Required]
             [Phone]
             public string PhoneNumber { get; set; }
             [Required]
             [EmailAddress]
             public string Email { get; set; }
+
+            [Required]
+            [DataType(DataType.Password)]
+            public string Password { get; set; }
 
             [SelectItems(nameof(Departments))]
             [DisplayName("Department")]

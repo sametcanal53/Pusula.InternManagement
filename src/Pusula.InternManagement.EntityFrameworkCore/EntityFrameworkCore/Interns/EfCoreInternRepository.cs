@@ -70,6 +70,7 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Interns
                     Id = x.Id,
                     DepartmentId = x.DepartmentId,
                     Name = x.Name,
+                    Surname = x.Surname,
                     PhoneNumber = x.PhoneNumber,
                     Email = x.Email,
                     StartDate = x.StartDate,

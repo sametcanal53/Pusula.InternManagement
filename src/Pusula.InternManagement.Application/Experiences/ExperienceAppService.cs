@@ -59,7 +59,7 @@ namespace Pusula.InternManagement.Experiences
                 StartDate = x.experience.StartDate,
                 EndDate = x.experience.EndDate,
                 InternId = x.intern.Id,
-                InternName = x.intern.Name,
+                InternName = $"{x.intern.Name} {x.intern.Surname}",
                 CreationTime = x.experience.CreationTime,
                 CreatorId = x.experience.CreatorId,
                 LastModifierId = x.experience.LastModifierId,

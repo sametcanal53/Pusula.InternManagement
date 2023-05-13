@@ -63,7 +63,7 @@ namespace Pusula.InternManagement.Files
                 Id = x.file.Id,
                 Name = x.file.Name,
                 InternId = x.intern.Id,
-                InternName = x.intern.Name,
+                InternName = $"{x.intern.Name} {x.intern.Surname}",
                 CreationTime = x.file.CreationTime,
                 CreatorId = x.file.CreatorId
             }).ToList();

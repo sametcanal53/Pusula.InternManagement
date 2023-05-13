@@ -55,6 +55,7 @@ namespace Pusula.InternManagement.Interns
             {
                 Id = x.intern.Id,
                 Name = x.intern.Name,
+                Surname = x.intern.Surname,
                 PhoneNumber = x.intern.PhoneNumber,
                 Email = x.intern.Email,
                 StartDate = x.intern.StartDate,
@@ -97,17 +98,9 @@ namespace Pusula.InternManagement.Interns
         {
             Log.Logger.Information($"Creating intern");
 
-            // Check if a intern with the same name already exists in the repository
-            var existsIntern = await _internRepository.FindByNameAsync(input.Name);
-            if (existsIntern != null)
-            {
-                Log.Logger.Error($"Cannot create a intern with name {input.Name} because it already exists");
-                throw new InternAlreadyExistsException(input.Name);
-            }
-
             // Insert the new intern entity into the repository
             var intern = await _internRepository.InsertAsync(
-                new Intern(GuidGenerator.Create(), input.DepartmentId, input.Name, input.PhoneNumber, input.Email, input.StartDate, input.EndDate));
+                new Intern(GuidGenerator.Create(), input.DepartmentId, input.Name, input.Surname, input.PhoneNumber, input.Email, input.Password, input.StartDate, input.EndDate));
 
             Log.Logger.Debug($"Successfully created a new intern with ID {intern.Id}");
             // Map the entity to a DTO and return it
@@ -122,19 +115,13 @@ namespace Pusula.InternManagement.Interns
             // Get the intern entity with the given ID from the repository
             var intern = await _internRepository.GetAsync(id);
 
-            // Check if another intern with the same name already exists in the repository
-            var existsIntern = await _internRepository.FindByNameAsync(input.Name);
-            if (existsIntern != null && existsIntern.Id != intern.Id)
-            {
-                Log.Logger.Error($"Cannot update the intern with name {input.Name} because a intern with the same name already exists");
-                throw new InternAlreadyExistsException(input.Name);
-            }
-
             // Update the intern entity with the input data
             intern.DepartmentId = input.DepartmentId;
             intern.SetName(input.Name);
+            intern.SetSurname(input.Surname);
             intern.SetPhoneNumber(input.PhoneNumber);
             intern.SetEmail(input.Email);
+            intern.SetPassword(input.Password);
             intern.SetStartDate(input.StartDate);
             intern.SetEndDate(input.EndDate);
 
@@ -176,7 +163,7 @@ namespace Pusula.InternManagement.Interns
             }
 
             // map the Intern entity to the InternDto object using AutoMapper
-            return ObjectMapper.Map<InternWithDetails,InternWithDetailsDto>(intern);
+            return ObjectMapper.Map<InternWithDetails, InternWithDetailsDto>(intern);
 
         }
     }

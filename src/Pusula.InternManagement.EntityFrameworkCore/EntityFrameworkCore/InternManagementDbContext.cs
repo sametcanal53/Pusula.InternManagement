@@ -113,7 +113,7 @@ public class InternManagementDbContext :
             b.ToTable(InternManagementConsts.DbTablePrefix + "Interns",
                 InternManagementConsts.DbSchema);
             b.ConfigureByConvention(); //auto configure for the base class props
-            b.Property(x => x.Name).IsRequired().HasMaxLength(InternConsts.MaxNameLength);
+            //b.Property(x => x.Name).IsRequired().HasMaxLength(InternConsts.MaxNameLength);
 
             b.HasOne<Department>().WithMany().HasForeignKey(x => x.DepartmentId).IsRequired();
         });
