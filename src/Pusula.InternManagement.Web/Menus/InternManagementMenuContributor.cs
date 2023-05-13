@@ -43,74 +43,115 @@ public class InternManagementMenuContributor : IMenuContributor
                 icon: "fa fa-list"
             ).AddItem(
                 new ApplicationMenuItem(
-                    "InternManagement.Interns",
-                    l["Menu:Interns"],
-                    url: "/Interns"
-                    
-                ).RequirePermissions(InternManagementPermissions.Interns.Default)
-            ).AddItem(
-                new ApplicationMenuItem(
-                    "InternManagement.Departments",
-                    l["Menu:Departments"],
-                    url: "/Departments"
-                ).RequirePermissions(InternManagementPermissions.Departments.Default)
+                    "InternManagement.Courses",
+                    l["Menu:Courses"],
+                    url: "/Courses",
+                    icon: "fa fa-pen"
+                ).RequirePermissions(InternManagementPermissions.Courses.Default)
             ).AddItem(
                 new ApplicationMenuItem(
                     "InternManagement.Educations",
                     l["Menu:Educations"],
-                    url: "/Educations"
+                    url: "/Educations",
+                    icon: "fa fa-school"
                 ).RequirePermissions(InternManagementPermissions.Educations.Default)
-            ).AddItem(
-                new ApplicationMenuItem(
-                    "InternManagement.Universities",
-                    l["Menu:Universities"],
-                    url: "/Universities"
-                ).RequirePermissions(InternManagementPermissions.Universities.Default)
-            ).AddItem(
-                new ApplicationMenuItem(
-                    "InternManagement.UniversityDepartments",
-                    l["Menu:UniversityDepartments"],
-                    url: "/UniversityDepartments"
-                ).RequirePermissions(InternManagementPermissions.UniversityDepartments.Default)
             ).AddItem(
                 new ApplicationMenuItem(
                     "InternManagement.Experiences",
                     l["Menu:Experiences"],
-                    url: "/Experiences"
+                    url: "/Experiences",
+                    icon: "fa fa-briefcase"
                 ).RequirePermissions(InternManagementPermissions.Experiences.Default)
-            ).AddItem(
-                new ApplicationMenuItem(
-                    "InternManagement.Projects",
-                    l["Menu:Projects"],
-                    url: "/Projects"
-                ).RequirePermissions(InternManagementPermissions.Projects.Default)
-            ).AddItem(
-                new ApplicationMenuItem(
-                    "InternManagement.Instructors",
-                    l["Menu:Instructors"],
-                    url: "/Instructors"
-                ).RequirePermissions(InternManagementPermissions.Instructors.Default)
-            ).AddItem(
-                new ApplicationMenuItem(
-                    "InternManagement.Courses",
-                    l["Menu:Courses"],
-                    url: "/Courses"
-                ).RequirePermissions(InternManagementPermissions.Courses.Default)
-            ).AddItem(
-                new ApplicationMenuItem(
-                    "InternManagement.Works",
-                    l["Menu:Works"],
-                    url: "/Works"
-                ).RequirePermissions(InternManagementPermissions.Works.Default)
             ).AddItem(
                 new ApplicationMenuItem(
                     "InternManagement.Files",
                     l["Menu:Files"],
-                    url: "/Files"
+                    url: "/Files",
+                    icon: "fa fa-download"
                 ).RequirePermissions(InternManagementPermissions.Files.Default)
+            ).AddItem(
+                new ApplicationMenuItem(
+                    "InternManagement.Interns",
+                    l["Menu:Interns"],
+                    url: "/Interns",
+                    icon: "fa fa-user"
+                ).RequirePermissions(InternManagementPermissions.Interns.Default)
+            ).AddItem(
+                new ApplicationMenuItem(
+                    "InternManagement.Projects",
+                    l["Menu:Projects"],
+                    url: "/Projects",
+                    icon: "fa fa-badge"
+                ).RequirePermissions(InternManagementPermissions.Projects.Default)
+            ).AddItem(
+                new ApplicationMenuItem(
+                    "InternManagement.Works",
+                    l["Menu:Works"],
+                    url: "/Works",
+                    icon: "fa fa-check"
+                ).RequirePermissions(InternManagementPermissions.Works.Default)
             )
         );
 
+        context.Menu.AddItem(
+            new ApplicationMenuItem(
+                "ListItems",
+                l["ListItems"],
+                icon: "fa fa-list"
+            )
+            .AddItem(
+                new ApplicationMenuItem(
+                    "InternManagement.Interns",
+                    l["Menu:Interns"],
+                    url: "/Interns",
+                    icon: "fa fa-user"
+                ).RequirePermissions(InternManagementPermissions.Interns.Admin)
+                    .AddItem(
+                    new ApplicationMenuItem(
+                        "InternManagement.Departments",
+                        l["Menu:Departments"],
+                        url: "/Departments"
+                    )
+                )
+            )
+            .AddItem(
+                new ApplicationMenuItem(
+                    "InternManagement.Educations",
+                    l["Menu:Educations"],
+                    url: "/Educations",
+                    icon: "fa fa-school"
+                ).RequirePermissions(InternManagementPermissions.Educations.Admin)
+                    .AddItem(
+                        new ApplicationMenuItem(
+                            "InternManagement.Universities",
+                            l["Menu:Universities"],
+                            url: "/Universities"
+                        )
+                    )
+                    .AddItem(
+                        new ApplicationMenuItem(
+                            "InternManagement.UniversityDepartments",
+                            l["Menu:UniversityDepartments"],
+                            url: "/UniversityDepartments"
+                        )
+                    )
+            )
+            .AddItem(
+                new ApplicationMenuItem(
+                    "InternManagement.Courses",
+                    l["Menu:Courses"],
+                    url: "/Courses",
+                    icon: "fa fa-pen"
+                ).RequirePermissions(InternManagementPermissions.Courses.Admin)
+                    .AddItem(
+                        new ApplicationMenuItem(
+                            "InternManagement.Instructors",
+                            l["Menu:Instructors"],
+                            url: "/Instructors"
+                        )
+                    )
+            )
+        );
 
         if (MultiTenancyConsts.IsEnabled)
         {

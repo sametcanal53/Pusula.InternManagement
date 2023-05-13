@@ -5,6 +5,7 @@
     "Welcome": "Welcome",
     "LongWelcomeMessage": "Welcome to the application. This is a startup project based on the ABP framework. For more information, visit abp.io.",
     // Menu
+    "InternManagement": "Intern Management",
     "Menu:InternManagement": "Intern Management",
     "Permission:InternManagementAdminPermissions": "Intern Management Admin Permissions",
     "Permission:InternManagement": "Intern Management",
@@ -13,8 +14,6 @@
     "LastModifierId": "Last Modifier Id",
     "LastModificationTime": "Last Modification Time",
     "Menu:Interns": "Interns",
-    "Menu:ListController": "List Controller",
-    "ListController": "List Controller",
     "Actions": "Actions",
     "Close": "Close",
     "Delete": "Delete",
@@ -37,6 +36,7 @@
     "Intern": "Intern",
     "Interns": "Interns",
     "Name": "Name",
+    "Surname": "Surname",
     "PhoneNumber": "Phone number",
     "Email": "Email",
     "StartDate": "Start Date",
@@ -91,6 +91,7 @@
     "Grade.6": "6. Grade",
     "Grade.7": "Master Degree",
     "Grade.8": "Graduate",
+    "EducationInformationForTheInternCouldNotBeFound": "Education information for the intern could not be found!!!",
 
     //University
     "Permission:Universities": "University Management",
@@ -137,6 +138,7 @@
     "Title": "Job Title",
     "Description": "Description",
     "CompanyName": "Company Name",
+    "ExperienceInformationForTheInternCouldNotBeFound": "Experience information for the intern could not be found!!!",
 
     //Projects
     "Permission:Projects": "Projects Management",
@@ -156,6 +158,7 @@
     //"StartDate": "Start Date",
     //"EndDate": "End Date",
     //"Interns": "Interns",
+    "ProjectInformationForTheInternCouldNotBeFound": "Project information for the intern could not be found!!!",
 
     //Courses
     "Permission:Courses": "Courses Management",
@@ -173,6 +176,7 @@
     //"Name": "Name",
     //"Description": "Description",
     "PublishDate": "Publish Date",
+    "CourseInformationForTheInternCouldNotBeFound": "Course information for the intern could not be found!!!",
 
     //Instructors
     "Permission:Instructors": "Instructors Management",
@@ -206,6 +210,7 @@
     //"Name": "Name",
     //"Description": "Description",
     "Date": "Date",
+    "NoWorksForThisWeek": "No works for this week",
 
     //Files
     "Permission:Files": "Files Management",
@@ -220,6 +225,7 @@
     "FileInformation": "File Information",
     "FileUpload": "File Upload",
     //"Name": "Name",
+    "FileInformationForTheInternCouldNotBeFound": "File information for the intern could not be found!!!",
 
     //Exceptions
     "InternManagementException:0": "There is already a intern with the same name: {name}",
