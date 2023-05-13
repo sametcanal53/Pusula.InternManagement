@@ -30,8 +30,7 @@ $(function () {
                                     text: l('Detail'),
                                     visible: abp.auth.isGranted('InternManagement.Interns.Admin'),
                                     action: function (data) {
-                                        console.log(data.record.id);
-                                        //window.location.href = '/Interns/Intern?id=' + data.record.id;
+                                        window.open('/Interns/Intern?id=' + data.record.id, "_blank");
                                     }
                                 },
                                 {

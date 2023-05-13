@@ -174,8 +174,8 @@
                             </abp-card-body>
                             <abp-card-footer>
                                 <div style="display: flex; justify-content: space-between;">
-                                    <abp-card-text>@experience.StartDate.ToString("MMMM yyyy")</abp-card-text>
-                                    <abp-card-text>@experience.EndDate.ToString("MMMM yyyy")</abp-card-text>
+                                    <abp-card-text>@experience.StartDate.ToString("d MMMM yyyy")</abp-card-text>
+                                    <abp-card-text>@experience.EndDate.ToString("d MMMM yyyy")</abp-card-text>
                                 </div>
                                 @{
                                     var experienceEndDate = experience.EndDate;
@@ -217,8 +217,8 @@
                             </abp-card-body>
                             <abp-card-footer>
                                 <div style="display: flex; justify-content: space-between;">
-                                    <abp-card-text>@project.StartDate.ToString("MMMM yyyy")</abp-card-text>
-                                    <abp-card-text>@project.EndDate.ToString("MMMM yyyy")</abp-card-text>
+                                    <abp-card-text>@project.StartDate.ToString("d MMMM yyyy")</abp-card-text>
+                                    <abp-card-text>@project.EndDate.ToString("d MMMM yyyy")</abp-card-text>
                                 </div>
                                 @{
                                     var projectEndDate = project.EndDate;
