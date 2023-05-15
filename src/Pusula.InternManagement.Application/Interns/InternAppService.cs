@@ -128,9 +128,10 @@ namespace Pusula.InternManagement.Interns
             intern.SetSurname(input.Surname);
             intern.SetPhoneNumber(input.PhoneNumber);
             intern.SetEmail(input.Email);
-            intern.SetPassword(input.Password);
             intern.SetStartDate(input.StartDate);
             intern.SetEndDate(input.EndDate);
+            if (!string.IsNullOrWhiteSpace(input.Password))
+                intern.SetPassword(input.Password);
 
             // Save the changes to the intern entity in the database
             await _internRepository.UpdateAsync(intern);

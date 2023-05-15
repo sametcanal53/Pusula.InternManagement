@@ -61,6 +61,7 @@ namespace Pusula.InternManagement.Web.Pages.Interns
             [HiddenInput]
             public Guid Id { get; set; }
 
+            [HiddenInput]
             public string UserName { get; set; }
 
             [Required]
@@ -76,7 +77,6 @@ namespace Pusula.InternManagement.Web.Pages.Interns
             [EmailAddress]
             public string Email { get; set; }
 
-            [Required]
             [DataType(DataType.Password)]
             public string Password { get; set; }
 
