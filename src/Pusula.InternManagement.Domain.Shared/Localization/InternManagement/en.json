@@ -230,18 +230,18 @@
     "FileInformationForTheInternCouldNotBeFound": "File information for the intern could not be found!!!",
 
     //Exceptions
-    "InternManagementException:0": "There is already a intern with the same name: {name}",
-    "InternManagementException:1": "There is already a department with the same name: {name}",
-    "InternManagementException:2": "There is already a university with the same name: {name}",
-    "InternManagementException:3": "There is already a education with the same name: {name}",
-    "InternManagementException:4": "There is already a university department with the same name: {name}",
-    "InternManagementException:5": "There is already a experience with the same name: {name}",
-    "InternManagementException:6": "There is already a project with the same name: {name}",
-    "InternManagementException:7": "There is already a course with the same name: {name}",
-    "InternManagementException:8": "There is already a instructor with the same name: {name}",
-    "InternManagementException:9": "The file extension is not supported. Please upload a {fileType} file.",
-    "InternManagementException:10": "There is already a file with the same name: {name}",
-    "InternManagementException:11": "File not found, check filename: {name}",
-    "InternManagementException:12": "End date cannot be before the start date."
+    "InternManagement:0": "There is already a intern with the same name: {name}",
+    "InternManagement:1": "There is already a department with the same name: {name}",
+    "InternManagement:2": "There is already a university with the same name: {name}",
+    "InternManagement:3": "There is already a education with the same name: {name}",
+    "InternManagement:4": "There is already a university department with the same name: {name}",
+    "InternManagement:5": "There is already a experience with the same name: {name}",
+    "InternManagement:6": "There is already a project with the same name: {name}",
+    "InternManagement:7": "There is already a intern with the same name: {name}",
+    "InternManagement:8": "There is already a instructor with the same name: {name}",
+    "InternManagement:9": "The file extension is not supported. Please upload a {fileType} file.",
+    "InternManagement:10": "There is already a file with the same name: {name}",
+    "InternManagement:11": "File not found, check filename: {name}",
+    "InternManagement:12": "End date cannot be before the start date."
   }
 }

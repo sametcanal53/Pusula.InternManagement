@@ -230,18 +230,18 @@
     "FileInformationForTheInternCouldNotBeFound": "Stajyer için dosya bilgisi bulunamadı!!!",
 
     // İstisnalar
-    "InternManagementException:0": "Aynı isimde bir stajyer zaten mevcut: {name}",
-    "InternManagementException:1": "Aynı isimde bir departman zaten mevcut: {name}",
-    "InternManagementException:2": "Aynı isimde bir üniversite zaten mevcut: {name}",
-    "InternManagementException:3": "Aynı isimde bir eğitim zaten mevcut: {name}",
-    "InternManagementException:4": "Aynı isimde bir üniversite departmanı zaten mevcut: {name}",
-    "InternManagementException:5": "Aynı isimde bir deneyim zaten mevcut: {name}",
-    "InternManagementException:6": "Aynı isimde bir proje zaten mevcut: {name}",
-    "InternManagementException:7": "Aynı isimde bir kurs zaten mevcut: {name}",
-    "InternManagementException:8": "Aynı isimde bir eğitmen zaten mevcut: {name}",
-    "InternManagementException:9": "Dosya uzantısı desteklenmiyor. Lütfen bir {fileType} dosyası yükleyin.",
-    "InternManagementException:10": "Aynı isimde bir dosya zaten mevcut: {name}",
-    "InternManagementException:11": "Dosya bulunamadı, dosya adını kontrol edin: {name}",
-    "InternManagementException:12": "Bitiş tarihi başlangıç tarihinden önce olamaz."
+    "InternManagement:0": "Aynı isimde bir stajyer zaten mevcut: {name}",
+    "InternManagement:1": "Aynı isimde bir departman zaten mevcut: {name}",
+    "InternManagement:2": "Aynı isimde bir üniversite zaten mevcut: {name}",
+    "InternManagement:3": "Aynı isimde bir eğitim zaten mevcut: {name}",
+    "InternManagement:4": "Aynı isimde bir üniversite departmanı zaten mevcut: {name}",
+    "InternManagement:5": "Aynı isimde bir deneyim zaten mevcut: {name}",
+    "InternManagement:6": "Aynı isimde bir proje zaten mevcut: {name}",
+    "InternManagement:7": "Aynı isimde bir kurs zaten mevcut: {name}",
+    "InternManagement:8": "Aynı isimde bir eğitmen zaten mevcut: {name}",
+    "InternManagement:9": "Dosya uzantısı desteklenmiyor. Lütfen bir {fileType} dosyası yükleyin.",
+    "InternManagement:10": "Aynı isimde bir dosya zaten mevcut: {name}",
+    "InternManagement:11": "Dosya bulunamadı, dosya adını kontrol edin: {name}",
+    "InternManagement:12": "Bitiş tarihi başlangıç tarihinden önce olamaz."
   }
 }
