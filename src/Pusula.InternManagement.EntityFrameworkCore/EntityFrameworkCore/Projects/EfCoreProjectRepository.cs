@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Pusula.InternManagement.EntityFrameworkCore.Base;
 using Pusula.InternManagement.Interns;
 using Pusula.InternManagement.Permissions;
 using Pusula.InternManagement.Projects;
@@ -16,57 +17,15 @@ using Volo.Abp.EntityFrameworkCore;
 #nullable disable
 namespace Pusula.InternManagement.EntityFrameworkCore.Projects
 {
-    public class EfCoreProjectRepository : EfCoreRepository<InternManagementDbContext, Project, Guid>, IProjectRepository
+    public class EfCoreProjectRepository : EfCoreWithDetailRepository<Project, Guid, ProjectWithDetails>, IProjectRepository
     {
-        private readonly IAuthorizationService _authorizationService;
-
         public EfCoreProjectRepository(
             IDbContextProvider<InternManagementDbContext> dbContextProvider,
-            IAuthorizationService authorizationService) : base(dbContextProvider)
+            IAuthorizationService authorizationService) : base(dbContextProvider, authorizationService)
         {
-            _authorizationService = authorizationService;
         }
 
-        public async Task<Project> FindByNameAsync(string name)
-        {
-            // Gets the DbSet<Project> from the DbContext
-            var dbSet = await GetDbSetAsync();
-
-            // Returns the first Project entity that matches the given name
-            return await dbSet.FirstOrDefaultAsync(project => project.Name == name);
-        }
-
-        public async Task<ProjectWithDetails> GetByIdAsync(Guid id)
-        {
-            // Retrieve a filtered query of projects based on some criteria.
-            var query = await ApplyFilterAsync();
-
-            // Return the first project in the filtered query that matches the given ID.
-            return await query.FirstOrDefaultAsync(project => project.Id == id);
-        }
-
-        public async Task<List<ProjectWithDetails>> GetListAsync(
-            string sorting,
-            int skipCount,
-            int maxResultCount,
-            Guid creatorId,
-            CancellationToken cancellationToken = default)
-        {
-            // Applies filters to the Projects list
-            var query = await ApplyFilterAsync();
-
-            // Check if the user has admin permission for the Projects module
-            var isAdmin = await _authorizationService.IsGrantedAsync(InternManagementPermissions.Projects.Admin);
-
-            // Orders the list according to the given sorting parameter
-            return await query
-                .WhereIf(!isAdmin, project => project.CreatorId == creatorId)
-                .OrderBy(!string.IsNullOrWhiteSpace(sorting) ? sorting : nameof(Project.Name))
-                .PageBy(skipCount, maxResultCount)
-                .ToListAsync(GetCancellationToken(cancellationToken));
-        }
-
-        private async Task<IQueryable<ProjectWithDetails>> ApplyFilterAsync()
+        protected override async Task<IQueryable<ProjectWithDetails>> ApplyFilterAsync()
         {
             // Gets the DbContext and DbSet<Project> instances
             var dbContext = await GetDbContextAsync();
@@ -96,5 +55,29 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Projects
                 });
         }
 
+        protected override Guid GetCreatorId(ProjectWithDetails entity)
+        {
+            return (Guid)entity.CreatorId;
+        }
+
+        protected override string GetDefaultSorting()
+        {
+            return nameof(Project.Name);
+        }
+
+        protected override Guid GetIdProperty(ProjectWithDetails entity)
+        {
+            return entity.Id;
+        }
+
+        protected override string GetNameProperty(Project entity)
+        {
+            return entity.Name;
+        }
+
+        protected override string GetPermissionForModule()
+        {
+            return InternManagementPermissions.Projects.Admin;
+        }
     }
 }

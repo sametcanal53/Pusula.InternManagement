@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
 using Pusula.InternManagement.Courses;
+using Pusula.InternManagement.EntityFrameworkCore.Base;
 using Pusula.InternManagement.Instructors;
 using Pusula.InternManagement.Interns;
 using Pusula.InternManagement.Permissions;
@@ -17,52 +18,15 @@ using Volo.Abp.EntityFrameworkCore;
 #nullable disable
 namespace Pusula.InternManagement.EntityFrameworkCore.Courses
 {
-    public class EfCoreCourseRepository : EfCoreRepository<InternManagementDbContext, Course, Guid>, ICourseRepository
+    public class EfCoreCourseRepository : EfCoreWithDetailRepository<Course, Guid, CourseWithDetails>, ICourseRepository
     {
-        private readonly IAuthorizationService _authorizationService;
-
         public EfCoreCourseRepository(
             IDbContextProvider<InternManagementDbContext> dbContextProvider,
-            IAuthorizationService authorizationService) : base(dbContextProvider)
+            IAuthorizationService authorizationService) : base(dbContextProvider, authorizationService)
         {
-            _authorizationService = authorizationService;
         }
 
-        public async Task<Course> FindByNameAsync(string name)
-        {
-            // Gets the DbSet<Course> from the DbContext
-            var dbSet = await GetDbSetAsync();
-
-            // Returns the first Course entity that matches the given name
-            return await dbSet.FirstOrDefaultAsync(course => course.Name == name);
-        }
-
-        public async Task<CourseWithDetails> GetByIdAsync(Guid id)
-        {
-            // Retrieve a filtered query of courses based on some criteria.
-            var query = await ApplyFilterAsync();
-
-            // Return the first course in the filtered query that matches the given ID.
-            return await query.FirstOrDefaultAsync(course => course.Id == id);
-        }
-
-        public async Task<List<CourseWithDetails>> GetListAsync(string sorting, int skipCount, int maxResultCount, Guid creatorId, CancellationToken cancellationToken = default)
-        {
-            // Applies filters to the Courses list
-            var query = await ApplyFilterAsync();
-
-            // Check if the user has admin permission for the Courses module
-            var isAdmin = await _authorizationService.IsGrantedAsync(InternManagementPermissions.Courses.Admin);
-
-            // Orders the list according to the given sorting parameter
-            return await query
-                .WhereIf(!isAdmin, course => course.CreatorId == creatorId)
-                .OrderBy(!string.IsNullOrWhiteSpace(sorting) ? sorting : nameof(Course.Name))
-                .PageBy(skipCount, maxResultCount)
-                .ToListAsync(GetCancellationToken(cancellationToken));
-        }
-
-        private async Task<IQueryable<CourseWithDetails>> ApplyFilterAsync()
+        protected override async Task<IQueryable<CourseWithDetails>> ApplyFilterAsync()
         {
             // Gets the DbContext and DbSet<Course> instances
             var dbContext = await GetDbContextAsync();
@@ -95,5 +59,31 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Courses
                                select $"{intern.Name} {intern.Surname}").ToList()
                 });
         }
+
+        protected override Guid GetCreatorId(CourseWithDetails entity)
+        {
+            return (Guid)entity.CreatorId;
+        }
+
+        protected override string GetDefaultSorting()
+        {
+            return nameof(Course.Name);
+        }
+
+        protected override Guid GetIdProperty(CourseWithDetails entity)
+        {
+            return entity.Id;
+        }
+
+        protected override string GetNameProperty(Course entity)
+        {
+            return entity.Name;
+        }
+
+        protected override string GetPermissionForModule()
+        {
+            return InternManagementPermissions.Courses.Admin;
+        }
+        
     }
 }

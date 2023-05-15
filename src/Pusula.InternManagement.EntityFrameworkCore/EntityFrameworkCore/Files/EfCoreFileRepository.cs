@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Pusula.InternManagement.EntityFrameworkCore.Base;
 using Pusula.InternManagement.Files;
 using Pusula.InternManagement.Permissions;
 using System;
@@ -15,15 +16,12 @@ using Volo.Abp.EntityFrameworkCore;
 #nullable disable
 namespace Pusula.InternManagement.EntityFrameworkCore.Files
 {
-    public class EfCoreFileRepository : EfCoreRepository<InternManagementDbContext, File, Guid>, IFileRepository
+    public class EfCoreFileRepository : EfCoreBaseRepository<File, Guid>, IFileRepository
     {
-        private readonly IAuthorizationService _authorizationService;
-
         public EfCoreFileRepository(
             IDbContextProvider<InternManagementDbContext> dbContextProvider,
-            IAuthorizationService authorizationService) : base(dbContextProvider)
+            IAuthorizationService authorizationService) : base(dbContextProvider, authorizationService)
         {
-            _authorizationService = authorizationService;
         }
 
         public async Task<File> FindByIdAndNameAsync(Guid internId, string name)
@@ -35,22 +33,24 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Files
             return await dbSet.FirstOrDefaultAsync(file => file.Name == name && file.InternId == internId);
         }
 
-        public async Task<List<File>> GetListAsync(string sorting, int skipCount, int maxResultCount, Guid creatorId, CancellationToken cancellationToken = default)
+        protected override Guid GetCreatorId(File entity)
         {
-            // Gets the DbSet<File> from the DbContext
-            var dbSet = await GetDbSetAsync();
+            return (Guid)entity.CreatorId;
+        }
 
-            // Check if the user has admin permission for the Files module
-            var isAdmin = await _authorizationService.IsGrantedAsync(InternManagementPermissions.Files.Admin);
+        protected override string GetDefaultSorting()
+        {
+            return nameof(File.Name);
+        }
 
-            // Retrieve the requested page of File entities
-            // from the database, ordered by the specified sorting criteria (or by file name if sorting is not specified),
-            // using the provided skip and take values, and asynchronously convert the results to a list using the cancellation token, and return the resulting list.
-            return await dbSet
-                .WhereIf(!isAdmin, file => file.CreatorId == creatorId)
-                .OrderBy(!string.IsNullOrWhiteSpace(sorting) ? sorting : nameof(File.Name))
-                .PageBy(skipCount, maxResultCount)
-                .ToListAsync(GetCancellationToken(cancellationToken));
+        protected override string GetNameProperty(File entity)
+        {
+            return entity.Name;
+        }
+
+        protected override string GetPermissionForModule()
+        {
+            return InternManagementPermissions.Files.Admin;
         }
     }
 }

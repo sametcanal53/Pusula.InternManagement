@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Authorization;
 using Microsoft.EntityFrameworkCore;
+using Pusula.InternManagement.EntityFrameworkCore.Base;
 using Pusula.InternManagement.Instructors;
 using Pusula.InternManagement.Permissions;
 using System;
@@ -15,42 +16,32 @@ using Volo.Abp.EntityFrameworkCore;
 #nullable disable
 namespace Pusula.InternManagement.EntityFrameworkCore.Instructors
 {
-    public class EfCoreInstructorRepository : EfCoreRepository<InternManagementDbContext, Instructor, Guid>, IInstructorRepository
+    public class EfCoreInstructorRepository : EfCoreBaseRepository<Instructor, Guid>, IInstructorRepository
     {
-        private readonly IAuthorizationService _authorizationService;
-
         public EfCoreInstructorRepository(
-            IDbContextProvider<InternManagementDbContext> dbContextProvider,
-            IAuthorizationService authorizationService) : base(dbContextProvider)
+            IDbContextProvider<InternManagementDbContext> dbContextProvider, 
+            IAuthorizationService authorizationService) : base(dbContextProvider, authorizationService)
         {
-            _authorizationService = authorizationService;
         }
 
-        public async Task<Instructor> FindByNameAsync(string name)
+        protected override Guid GetCreatorId(Instructor entity)
         {
-            // Gets the DbSet<Instructor> from the DbContext
-            var dbSet = await GetDbSetAsync();
-
-            // Returns the first Instructor entity that matches the given name
-            return await dbSet.FirstOrDefaultAsync(instructor => instructor.Name == name);
+            return (Guid)entity.CreatorId;
         }
 
-        public async Task<List<Instructor>> GetListAsync(string sorting, int skipCount, int maxResultCount, Guid creatorId, CancellationToken cancellationToken = default)
+        protected override string GetDefaultSorting()
         {
-            // Gets the DbSet<Instructor> from the DbContext
-            var dbSet = await GetDbSetAsync();
+            return nameof(Instructor.Name);
+        }
 
-            // Check if the user has admin permission for the Instructors module
-            var isAdmin = await _authorizationService.IsGrantedAsync(InternManagementPermissions.Instructors.Admin);
+        protected override string GetNameProperty(Instructor entity)
+        {
+            return entity.Name;
+        }
 
-            // Retrieve the requested page of Instructor entities
-            // from the database, ordered by the specified sorting criteria (or by instructor name if sorting is not specified),
-            // using the provided skip and take values, and asynchronously convert the results to a list using the cancellation token, and return the resulting list.
-            return await dbSet
-                .WhereIf(!isAdmin, instructor => instructor.CreatorId == creatorId)
-                .OrderBy(!string.IsNullOrWhiteSpace(sorting) ? sorting : nameof(Instructor.Name))
-                .PageBy(skipCount, maxResultCount)
-                .ToListAsync(GetCancellationToken(cancellationToken));
+        protected override string GetPermissionForModule()
+        {
+            return InternManagementPermissions.Instructors.Admin;
         }
     }
 }
