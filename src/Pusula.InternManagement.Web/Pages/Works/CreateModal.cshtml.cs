@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Pusula.InternManagement.Permissions;
 
 #nullable disable
 namespace Pusula.InternManagement.Web.Pages.Works
@@ -43,6 +45,11 @@ namespace Pusula.InternManagement.Web.Pages.Works
         // Handles the HTTP POST request for this page.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!(await AuthorizationService.IsGrantedAsync(InternManagementPermissions.Works.Admin)))
+            {
+                Work.InternId = (Guid)CurrentUser.Id;
+            }
+
             // Calls the application service to create a new work, passing in a CreateWorkDto object mapped from the Work property.
             await _workAppService.CreateAsync(
                 ObjectMapper.Map<CreateWorkViewModel, CreateWorkDto>(Work));

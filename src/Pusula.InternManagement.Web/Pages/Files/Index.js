@@ -61,7 +61,7 @@ $(function () {
                 {
                     title: l('Id'),
                     data: "id",
-                    visible: abp.auth.isGranted('InternManagement.Files.Admin'),
+                    visible: abp.auth.isGranted('InternManagement.Files.Admin')
                 },
                 {
                     title: l('Name'),
@@ -70,16 +70,17 @@ $(function () {
                 {
                     title: l('InternId'),
                     data: "internId",
-                    visible: abp.auth.isGranted('InternManagement.Files.Admin'),
+                    visible: abp.auth.isGranted('InternManagement.Files.Admin')
                 },
                 {
                     title: l('Intern'),
-                    data: "internName"
+                    data: "internName",
+                    visible: abp.auth.isGranted('InternManagement.Files.Admin')
                 },
                 {
                     title: l('CreatorId'),
                     data: "creatorId",
-                    visible: abp.auth.isGranted('InternManagement.Files.Admin'),
+                    visible: abp.auth.isGranted('InternManagement.Files.Admin')
                 },
                 {
                     title: l('CreationTime'),
@@ -87,7 +88,7 @@ $(function () {
                     render: function (data) {
                         return moment(data).format('LLL');
                     },
-                    visible: abp.auth.isGranted('InternManagement.Files.Admin'),
+                    visible: abp.auth.isGranted('InternManagement.Files.Admin')
                 }
             ]
         })

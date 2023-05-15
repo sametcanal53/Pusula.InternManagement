@@ -24,11 +24,6 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Universities
         {
         }
 
-        protected override Guid GetCreatorId(University entity)
-        {
-            return (Guid)entity.CreatorId;
-        }
-
         protected override string GetDefaultSorting()
         {
             return nameof(University.Name);

@@ -24,11 +24,6 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Experiences
         {
         }
 
-        protected override Guid GetCreatorId(Experience entity)
-        {
-            return (Guid)entity.CreatorId;
-        }
-
         protected override string GetDefaultSorting()
         {
             return nameof(Experience.Name);

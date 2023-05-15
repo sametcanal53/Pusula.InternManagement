@@ -33,11 +33,6 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Files
             return await dbSet.FirstOrDefaultAsync(file => file.Name == name && file.InternId == internId);
         }
 
-        protected override Guid GetCreatorId(File entity)
-        {
-            return (Guid)entity.CreatorId;
-        }
-
         protected override string GetDefaultSorting()
         {
             return nameof(File.Name);

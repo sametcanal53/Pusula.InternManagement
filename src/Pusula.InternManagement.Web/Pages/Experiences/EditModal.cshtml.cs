@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Pusula.InternManagement.Permissions;
 
 #nullable disable
 namespace Pusula.InternManagement.Web.Pages.Experiences
@@ -45,6 +47,11 @@ namespace Pusula.InternManagement.Web.Pages.Experiences
         // Handles the HTTP POST request for this page.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!(await AuthorizationService.IsGrantedAsync(InternManagementPermissions.Experiences.Admin)))
+            {
+                Experience.InternId = (Guid)CurrentUser.Id;
+            }
+
             // Calls the application service to update a experience, passing in a UpdateExperienceDto object mapped from the Experience property.
             await _experienceAppService.UpdateAsync(
                 Experience.Id,

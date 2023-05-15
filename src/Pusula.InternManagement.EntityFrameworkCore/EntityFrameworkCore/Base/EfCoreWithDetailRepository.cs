@@ -48,7 +48,7 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Base
             var isAdmin = await _authorizationService.IsGrantedAsync(GetPermissionForModule());
 
             return await query
-                .WhereIf(!isAdmin, entity => GetCreatorId(entity) == creatorId)
+                .WhereIf(!isAdmin, entity => EF.Property<Guid?>(entity, "CreatorId").Equals(creatorId))
                 .OrderBy(!string.IsNullOrWhiteSpace(sorting) ? sorting : GetDefaultSorting())
                 .PageBy(skipCount, maxResultCount)
                 .ToListAsync(GetCancellationToken(cancellationToken));
@@ -59,7 +59,6 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Base
         protected abstract Task<IQueryable<TEntityWithDetail>> ApplyFilterAsync();
         protected abstract string GetNameProperty(TEntity entity);
         protected abstract Guid GetIdProperty(TEntityWithDetail entity);
-        protected abstract Guid GetCreatorId(TEntityWithDetail entity);
         protected abstract string GetDefaultSorting();
     }
 }

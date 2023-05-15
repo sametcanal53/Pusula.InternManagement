@@ -60,11 +60,6 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Courses
                 });
         }
 
-        protected override Guid GetCreatorId(CourseWithDetails entity)
-        {
-            return (Guid)entity.CreatorId;
-        }
-
         protected override string GetDefaultSorting()
         {
             return nameof(Course.Name);

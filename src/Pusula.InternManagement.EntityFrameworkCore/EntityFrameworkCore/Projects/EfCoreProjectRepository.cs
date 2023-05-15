@@ -55,11 +55,6 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Projects
                 });
         }
 
-        protected override Guid GetCreatorId(ProjectWithDetails entity)
-        {
-            return (Guid)entity.CreatorId;
-        }
-
         protected override string GetDefaultSorting()
         {
             return nameof(Project.Name);

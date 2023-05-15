@@ -1,11 +1,12 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using System.ComponentModel.DataAnnotations;
 using System;
+using Volo.Abp.Auditing;
 
 #nullable disable
 namespace Pusula.InternManagement.Web.Pages.Interns
 {
-    public class InternViewModel
+    public class InternViewModel : IMustHaveCreator
     {
         [HiddenInput]
         public Guid Id { get; set; }
@@ -18,5 +19,7 @@ namespace Pusula.InternManagement.Web.Pages.Interns
         [Required]
         [HiddenInput]
         public string Surname { get; set; }
+
+        public Guid CreatorId { get; set; }
     }
 }

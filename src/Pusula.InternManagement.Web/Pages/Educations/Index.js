@@ -52,7 +52,7 @@ $(function () {
                 {
                     title: l('Id'),
                     data: "id",
-                    visible: abp.auth.isGranted('InternManagement.Educations.Admin'),
+                    visible: abp.auth.isGranted('InternManagement.Educations.Admin')
                 },
                 {
                     title: l('Name'),
@@ -61,16 +61,17 @@ $(function () {
                 {
                     title: l('InternId'),
                     data: "internId",
-                    visible: abp.auth.isGranted('InternManagement.Educations.Admin'),
+                    visible: abp.auth.isGranted('InternManagement.Educations.Admin')
                 },
                 {
                     title: l('InternName'),
-                    data: "internName"
+                    data: "internName",
+                    visible: abp.auth.isGranted('InternManagement.Educations.Admin')
                 },
                 {
                     title: l('UniversityId'),
                     data: "universityId",
-                    visible: abp.auth.isGranted('InternManagement.Educations.Admin'),
+                    visible: abp.auth.isGranted('InternManagement.Educations.Admin')
                 },
                 {
                     title: l('UniversityName'),
@@ -79,7 +80,7 @@ $(function () {
                 {
                     title: l('UniversityDepartmentId'),
                     data: "universityDepartmentId",
-                    visible: abp.auth.isGranted('InternManagement.Educations.Admin'),
+                    visible: abp.auth.isGranted('InternManagement.Educations.Admin')
                 },
                 {
                     title: l('UniversityDepartmentName'),
@@ -120,7 +121,7 @@ $(function () {
                 {
                     title: l('CreatorId'),
                     data: "creatorId",
-                    visible: abp.auth.isGranted('InternManagement.Educations.Admin'),
+                    visible: abp.auth.isGranted('InternManagement.Educations.Admin')
                 },
                 {
                     title: l('CreationTime'),
@@ -135,7 +136,7 @@ $(function () {
                 {
                     title: l('LastModifierId'),
                     data: "lastModifierId",
-                    visible: abp.auth.isGranted('InternManagement.Educations.Admin'),
+                    visible: abp.auth.isGranted('InternManagement.Educations.Admin')
                 },
                 {
                     title: l('LastModificationTime'),
@@ -145,7 +146,7 @@ $(function () {
                             return null;
                         return moment(data).format('LLL');
                     },
-                    visible: abp.auth.isGranted('InternManagement.Educations.Admin'),
+                    visible: abp.auth.isGranted('InternManagement.Educations.Admin')
                 }
             ]
         })

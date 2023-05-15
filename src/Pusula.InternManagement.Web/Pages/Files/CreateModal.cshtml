@@ -1,9 +1,12 @@
 ﻿@page
+@using Microsoft.AspNetCore.Authorization;
 @using Microsoft.Extensions.Localization;
 @using Pusula.InternManagement.Localization;
+@using Pusula.InternManagement.Permissions;
 @using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
 @model Pusula.InternManagement.Web.Pages.Files.CreateModalModel
 @inject IStringLocalizer<InternManagementResource> L
+@inject IAuthorizationService AuthorizationService
 @{
     Layout = null;
 }
@@ -16,7 +19,10 @@
                 <abp-tab title="@L["File"]" class="mt-3">
                     <div id="file-information-wrapper">
                         <abp-input asp-for="UploadFile.File" label="File" />
-                        <abp-select asp-for="UploadFile.InternId" />
+                        @if (await AuthorizationService.IsGrantedAsync(InternManagementPermissions.Works.Admin))
+                        {
+                            <abp-select asp-for="UploadFile.InternId" />
+                        }
                     </div>
                 </abp-tab>
             </abp-tabs>

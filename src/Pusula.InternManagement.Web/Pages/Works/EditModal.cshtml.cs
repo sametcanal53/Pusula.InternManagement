@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Pusula.InternManagement.Permissions;
 
 #nullable disable
 namespace Pusula.InternManagement.Web.Pages.Works
@@ -33,6 +35,8 @@ namespace Pusula.InternManagement.Web.Pages.Works
             var dto = await _workAppService.GetAsync(id);
             Work = ObjectMapper.Map<WorkDto, EditWorkViewModel>(dto);
 
+            
+
             // Retrieves a list of InternLookupDto objects from the application service, maps them to a list of SelectListItem objects, and assigns the result to the Interns property.
             var internLookupDto = await _workAppService.GetInternLookupAsync();
             Interns = internLookupDto
@@ -44,6 +48,11 @@ namespace Pusula.InternManagement.Web.Pages.Works
         // Handles the HTTP POST request for this page.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!(await AuthorizationService.IsGrantedAsync(InternManagementPermissions.Works.Admin)))
+            {
+                Work.InternId = (Guid)CurrentUser.Id;
+            }
+
             // Calls the application service to update a work, passing in a UpdateWorkDto object mapped from the Work property.
             await _workAppService.UpdateAsync(
                 Work.Id,

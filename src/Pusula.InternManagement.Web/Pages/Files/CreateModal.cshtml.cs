@@ -12,6 +12,9 @@ using System.Threading.Tasks;
 using System;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Pusula.InternManagement.Permissions;
+using Pusula.InternManagement.Works;
 
 #nullable disable
 namespace Pusula.InternManagement.Web.Pages.Files
@@ -48,6 +51,10 @@ namespace Pusula.InternManagement.Web.Pages.Files
         // Handles the HTTP POST request for this page.
         public async Task<IActionResult> OnPostAsync()
         {
+            if (!(await AuthorizationService.IsGrantedAsync(InternManagementPermissions.Files.Admin)))
+            {
+                UploadFile.InternId = (Guid)CurrentUser.Id;
+            }
 
             // Retrieves the file name from the uploaded file.
             var fileName = UploadFile.File.FileName;

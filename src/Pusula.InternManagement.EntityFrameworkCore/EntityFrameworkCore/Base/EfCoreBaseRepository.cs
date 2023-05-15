@@ -39,15 +39,16 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Base
             var dbSet = await GetDbSetAsync();
             var isAdmin = await _authorizationService.IsGrantedAsync(GetPermissionForModule());
 
-            return await dbSet
-                .WhereIf(!isAdmin, entity => GetCreatorId(entity) == creatorId)
+            var query = dbSet.AsQueryable();
+
+            return await query
+                .WhereIf(!isAdmin, entity => EF.Property<Guid>(entity, "CreatorId") == creatorId)
                 .OrderBy(!string.IsNullOrWhiteSpace(sorting) ? sorting : GetDefaultSorting())
                 .PageBy(skipCount, maxResultCount)
                 .ToListAsync(GetCancellationToken(cancellationToken));
         }
 
         protected abstract string GetPermissionForModule();
-        protected abstract Guid GetCreatorId(TEntity entity);
         protected abstract string GetDefaultSorting();
         protected abstract string GetNameProperty(TEntity entity);
     }

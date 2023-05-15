@@ -1,9 +1,12 @@
 ﻿@page
+@using Microsoft.AspNetCore.Authorization;
 @using Microsoft.Extensions.Localization;
 @using Pusula.InternManagement.Localization;
+@using Pusula.InternManagement.Permissions;
 @using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
 @model Pusula.InternManagement.Web.Pages.Courses.EditModalModel
 @inject IStringLocalizer<InternManagementResource> L
+@inject IAuthorizationService AuthorizationService
 @{
     Layout = null;
 }
@@ -21,24 +24,30 @@
                         <abp-input asp-for="Course.PublishDate" label="@L["PublishDate"]" />
                     </div>
                 </abp-tab>
-                <abp-tab title="@L["Intern"]">
-                    <div id="intern-list-wrapper" class="mt-3">
-                        @for (var i = 0; i < Model.Interns.Count; i++)
+                @if (await AuthorizationService.IsGrantedAsync(InternManagementPermissions.Courses.Admin))
+                {
+                    <abp-tab title="@L["Intern"]">
+                        <div id="intern-list-wrapper" class="mt-3">
+                            @for (var i = 0; i < Model.Interns.Count; i++)
+                            {
+                                var intern = Model.Interns[i];
+                                var fullname = $"{intern.Name} {intern.Surname}";
+                                <abp-input abp-id-name="@Model.Interns[i].IsSelected" asp-for="@intern.IsSelected" label="@fullname" />
+                                <input abp-id-name="@Model.Interns[i].Name" asp-for="@intern.Name" />
+                            }
+                        </div>
+                    </abp-tab>
+                }
+                <abp-tab title="@L["Instructor"]" class="mt-3">
+                    <div id="instructors-list-wrapper">
+                        @if (Model.Instructors.Any())
                         {
-                            var intern = Model.Interns[i];
-                            var fullname = $"{intern.Name} {intern.Surname}";
-                            <abp-input abp-id-name="@Model.Interns[i].IsSelected" asp-for="@intern.IsSelected" label="@fullname" />
-                            <input abp-id-name="@Model.Interns[i].Name" asp-for="@intern.Name" />
-                        }
-                    </div>
-                </abp-tab>
-                <abp-tab title="@L["Instructor"]">
-                    <div id="instructors-list-wrapper" class="mt-3">
-                        @for (var i = 0; i < Model.Instructors.Count; i++)
-                        {
-                            var instructor = Model.Instructors[i];
-                            <abp-input abp-id-name="@Model.Instructors[i].IsSelected" asp-for="@instructor.IsSelected" label="@instructor.Name" />
-                            <input abp-id-name="@Model.Instructors[i].Name" asp-for="@instructor.Name" />
+                            for (var i = 0; i < Model.Instructors.Count; i++)
+                            {
+                                var instructor = Model.Instructors[i];
+                                <abp-input abp-id-name="@Model.Instructors[i].IsSelected" asp-for="@instructor.IsSelected" label="@instructor.Name" />
+                                <input abp-id-name="@Model.Instructors[i].Name" asp-for="@instructor.Name" />
+                            }
                         }
                     </div>
                 </abp-tab>

@@ -24,11 +24,6 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Educations
         {
         }
 
-        protected override Guid GetCreatorId(Education entity)
-        {
-            return (Guid)entity.CreatorId;
-        }
-
         protected override string GetDefaultSorting()
         {
             return nameof(Education.Name);

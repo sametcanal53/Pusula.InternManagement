@@ -9,6 +9,8 @@ using System.Threading.Tasks;
 using System;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Pusula.InternManagement.Permissions;
 
 #nullable disable
 namespace Pusula.InternManagement.Web.Pages.Projects
@@ -41,13 +43,21 @@ namespace Pusula.InternManagement.Web.Pages.Projects
         // Handles the HTTP POST request for this page.
         public async Task<IActionResult> OnPostAsync()
         {
-            // Filters the Interns list to include only those that have been selected by the user, and maps the resulting list to a list of intern names. 
-            var selectedInterns = Interns.Where(x => x.IsSelected).ToList();
-            if (selectedInterns.Any())
+            if (!(await AuthorizationService.IsGrantedAsync(InternManagementPermissions.Projects.Admin)))
             {
-                var internNames = selectedInterns.Select(x => x.Name).ToList();
-                Project.Interns = internNames;
+                Project.Interns = new List<string> { CurrentUser.Name };
             }
+            else
+            {
+                // Filters the Interns list to include only those that have been selected by the user, and maps the resulting list to a list of intern names. 
+                var selectedInterns = Interns.Where(x => x.IsSelected).ToList();
+                if (selectedInterns.Any())
+                {
+                    var internNames = selectedInterns.Select(x => x.Name).ToList();
+                    Project.Interns = internNames;
+                }
+            }
+
 
             // Calls the application service to create a new project, passing in a CreateProjectDto object mapped from the Proje property.
             await _projectAppService.CreateAsync(

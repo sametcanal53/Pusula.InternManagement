@@ -52,16 +52,17 @@ $(function () {
                 {
                     title: l('Id'),
                     data: "id",
-                    visible: abp.auth.isGranted('InternManagement.Works.Admin'),
+                    visible: abp.auth.isGranted('InternManagement.Works.Admin')
                 },
                 {
                     title: l('InternId'),
                     data: "internId",
-                    visible: abp.auth.isGranted('InternManagement.Works.Admin'),
+                    visible: abp.auth.isGranted('InternManagement.Works.Admin')
                 },
                 {
                     title: l('InternName'),
-                    data: "internName"
+                    data: "internName",
+                    visible: abp.auth.isGranted('InternManagement.Works.Admin')
                 },
                 {
                     title: l('Name'),

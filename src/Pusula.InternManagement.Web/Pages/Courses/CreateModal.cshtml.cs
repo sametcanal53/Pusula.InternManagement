@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using System;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 using System.Linq;
+using Microsoft.AspNetCore.Authorization;
+using Pusula.InternManagement.Permissions;
 
 #nullable disable
 namespace Pusula.InternManagement.Web.Pages.Courses
@@ -51,13 +53,21 @@ namespace Pusula.InternManagement.Web.Pages.Courses
         // Handles the HTTP POST request for this page.
         public async Task<IActionResult> OnPostAsync()
         {
-            // Filters the Interns list to include only those that have been selected by the user, and maps the resulting list to a list of intern names. 
-            var selectedInterns = Interns.Where(x => x.IsSelected).ToList();
-            if (selectedInterns.Any())
+            if (!(await AuthorizationService.IsGrantedAsync(InternManagementPermissions.Courses.Admin)))
             {
-                var internNames = selectedInterns.Select(x => x.Name).ToList();
-                Course.Interns = internNames;
+                Course.Interns = new List<string> { CurrentUser.Name };
             }
+            else
+            {
+                // Filters the Interns list to include only those that have been selected by the user, and maps the resulting list to a list of intern names. 
+                var selectedInterns = Interns.Where(x => x.IsSelected).ToList();
+                if (selectedInterns.Any())
+                {
+                    var internNames = selectedInterns.Select(x => x.Name).ToList();
+                    Course.Interns = internNames;
+                }
+            }
+
 
             // Filters the Instructors list to include only those that have been selected by the user, and maps the resulting list to a list of instructor names.
             var selectedInstructors = Instructors.Where(x => x.IsSelected).ToList();
