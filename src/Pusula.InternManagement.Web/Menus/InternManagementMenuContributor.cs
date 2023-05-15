@@ -81,7 +81,7 @@ public class InternManagementMenuContributor : IMenuContributor
                     "InternManagement.Projects",
                     l["Menu:Projects"],
                     url: "/Projects",
-                    icon: "fa fa-badge"
+                    icon: "fa fa-clipboard-check"
                 ).RequirePermissions(InternManagementPermissions.Projects.Default)
             ).AddItem(
                 new ApplicationMenuItem(
@@ -95,8 +95,8 @@ public class InternManagementMenuContributor : IMenuContributor
 
         context.Menu.AddItem(
             new ApplicationMenuItem(
-                "ListItems",
-                l["ListItems"],
+                "Contents",
+                l["Contents"],
                 icon: "fa fa-list"
             )
             .AddItem(

@@ -15,6 +15,7 @@ using Volo.Abp.Application.Services;
 using Volo.Abp.BlobStoring;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Guids;
+using Volo.Abp.Users;
 
 namespace Pusula.InternManagement.Files
 {
@@ -24,15 +25,17 @@ namespace Pusula.InternManagement.Files
         private readonly IBlobContainer<FileContainer> _fileContainer;
         private readonly IFileRepository _fileRepository;
         private readonly IInternRepository _internRepository;
-
+        private readonly ICurrentUser _currentUser;
         public FileAppService(
             IBlobContainer<FileContainer> fileContainer,
             IFileRepository fileRepository,
-            IInternRepository internRepository)
+            IInternRepository internRepository,
+            ICurrentUser currentUser)
         {
             _fileContainer = fileContainer;
             _fileRepository = fileRepository;
             _internRepository = internRepository;
+            _currentUser = currentUser;
         }
 
         public async Task<PagedResultDto<FileDto>> GetListAsync(FileGetListInput input)
@@ -43,7 +46,8 @@ namespace Pusula.InternManagement.Files
             var files = await _fileRepository.GetListAsync(
                input.Sorting,
                input.SkipCount,
-               input.MaxResultCount);
+               input.MaxResultCount,
+               _currentUser.GetId());
 
             // Get a queryable collection of interns from the repository
             var internQuery = await _internRepository.GetQueryableAsync();

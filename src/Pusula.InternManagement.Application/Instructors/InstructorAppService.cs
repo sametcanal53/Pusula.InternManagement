@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Users;
 
 namespace Pusula.InternManagement.Instructors
 {
@@ -16,10 +17,14 @@ namespace Pusula.InternManagement.Instructors
     public class InstructorAppService : InternManagementAppService, IInstructorAppService
     {
         private readonly IInstructorRepository _instructorRepository;
+        private readonly ICurrentUser _currentUser;
 
-        public InstructorAppService(IInstructorRepository instructorRepository)
+        public InstructorAppService(
+            IInstructorRepository instructorRepository,
+            ICurrentUser currentUser)
         {
             _instructorRepository = instructorRepository;
+            _currentUser = currentUser;
         }
         public async Task<PagedResultDto<InstructorDto>> GetListAsync(InstructorGetListInput input)
         {
@@ -28,7 +33,8 @@ namespace Pusula.InternManagement.Instructors
             var instructors = await _instructorRepository.GetListAsync(
                input.Sorting,
                input.SkipCount,
-               input.MaxResultCount);
+               input.MaxResultCount,
+               _currentUser.GetId());
 
             // Count the total number of instructor in the repository, optionally filtering by name
             var totalCount = input.Filter == null

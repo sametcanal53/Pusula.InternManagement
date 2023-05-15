@@ -1,5 +1,7 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Pusula.InternManagement.Instructors;
+using Pusula.InternManagement.Permissions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -15,8 +17,13 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Instructors
 {
     public class EfCoreInstructorRepository : EfCoreRepository<InternManagementDbContext, Instructor, Guid>, IInstructorRepository
     {
-        public EfCoreInstructorRepository(IDbContextProvider<InternManagementDbContext> dbContextProvider) : base(dbContextProvider)
+        private readonly IAuthorizationService _authorizationService;
+
+        public EfCoreInstructorRepository(
+            IDbContextProvider<InternManagementDbContext> dbContextProvider,
+            IAuthorizationService authorizationService) : base(dbContextProvider)
         {
+            _authorizationService = authorizationService;
         }
 
         public async Task<Instructor> FindByNameAsync(string name)
@@ -28,15 +35,19 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Instructors
             return await dbSet.FirstOrDefaultAsync(instructor => instructor.Name == name);
         }
 
-        public async Task<List<Instructor>> GetListAsync(string sorting, int skipCount, int maxResultCount, CancellationToken cancellationToken = default)
+        public async Task<List<Instructor>> GetListAsync(string sorting, int skipCount, int maxResultCount, Guid creatorId, CancellationToken cancellationToken = default)
         {
             // Gets the DbSet<Instructor> from the DbContext
             var dbSet = await GetDbSetAsync();
+
+            // Check if the user has admin permission for the Instructors module
+            var isAdmin = await _authorizationService.IsGrantedAsync(InternManagementPermissions.Instructors.Admin);
 
             // Retrieve the requested page of Instructor entities
             // from the database, ordered by the specified sorting criteria (or by instructor name if sorting is not specified),
             // using the provided skip and take values, and asynchronously convert the results to a list using the cancellation token, and return the resulting list.
             return await dbSet
+                .WhereIf(!isAdmin, instructor => instructor.CreatorId == creatorId)
                 .OrderBy(!string.IsNullOrWhiteSpace(sorting) ? sorting : nameof(Instructor.Name))
                 .PageBy(skipCount, maxResultCount)
                 .ToListAsync(GetCancellationToken(cancellationToken));

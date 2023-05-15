@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Users;
 
 namespace Pusula.InternManagement.Projects
 {
@@ -19,15 +20,18 @@ namespace Pusula.InternManagement.Projects
         private readonly IProjectRepository _projectRepository;
         private readonly ProjectManager _projectManager;
         private readonly IInternRepository _internRepository;
+        private readonly ICurrentUser _currentUser;
 
         public ProjectAppService(
             IProjectRepository projectRepository,
             ProjectManager projectManager,
-            IInternRepository internRepository)
+            IInternRepository internRepository,
+            ICurrentUser currentUser)
         {
             _projectRepository = projectRepository;
             _projectManager = projectManager;
             _internRepository = internRepository;
+            _currentUser = currentUser;
         }
 
         public async Task<PagedResultDto<ProjectDto>> GetListAsync(ProjectGetListInput input)
@@ -38,7 +42,8 @@ namespace Pusula.InternManagement.Projects
             var projects = await _projectRepository.GetListAsync(
                 input.Sorting,
                 input.SkipCount,
-                input.MaxResultCount);
+                input.MaxResultCount,
+                _currentUser.GetId());
 
             // Count the total number of project in the repository, optionally filtering by name
             var totalCount = input.Filter == null

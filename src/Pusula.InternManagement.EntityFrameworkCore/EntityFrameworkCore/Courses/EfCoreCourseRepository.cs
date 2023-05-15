@@ -1,7 +1,9 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Pusula.InternManagement.Courses;
 using Pusula.InternManagement.Instructors;
 using Pusula.InternManagement.Interns;
+using Pusula.InternManagement.Permissions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -17,8 +19,13 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Courses
 {
     public class EfCoreCourseRepository : EfCoreRepository<InternManagementDbContext, Course, Guid>, ICourseRepository
     {
-        public EfCoreCourseRepository(IDbContextProvider<InternManagementDbContext> dbContextProvider) : base(dbContextProvider)
+        private readonly IAuthorizationService _authorizationService;
+
+        public EfCoreCourseRepository(
+            IDbContextProvider<InternManagementDbContext> dbContextProvider,
+            IAuthorizationService authorizationService) : base(dbContextProvider)
         {
+            _authorizationService = authorizationService;
         }
 
         public async Task<Course> FindByNameAsync(string name)
@@ -39,13 +46,17 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Courses
             return await query.FirstOrDefaultAsync(course => course.Id == id);
         }
 
-        public async Task<List<CourseWithDetails>> GetListAsync(string sorting, int skipCount, int maxResultCount, CancellationToken cancellationToken = default)
+        public async Task<List<CourseWithDetails>> GetListAsync(string sorting, int skipCount, int maxResultCount, Guid creatorId, CancellationToken cancellationToken = default)
         {
             // Applies filters to the Courses list
             var query = await ApplyFilterAsync();
 
+            // Check if the user has admin permission for the Courses module
+            var isAdmin = await _authorizationService.IsGrantedAsync(InternManagementPermissions.Courses.Admin);
+
             // Orders the list according to the given sorting parameter
             return await query
+                .WhereIf(!isAdmin, course => course.CreatorId == creatorId)
                 .OrderBy(!string.IsNullOrWhiteSpace(sorting) ? sorting : nameof(Course.Name))
                 .PageBy(skipCount, maxResultCount)
                 .ToListAsync(GetCancellationToken(cancellationToken));

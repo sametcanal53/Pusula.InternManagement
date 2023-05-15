@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Users;
 
 namespace Pusula.InternManagement.Experiences
 {
@@ -18,13 +19,16 @@ namespace Pusula.InternManagement.Experiences
     {
         private readonly IExperienceRepository _experienceRepository;
         private readonly IInternRepository _internRepository;
+        private readonly ICurrentUser _currentUser;
 
         public ExperienceAppService(
             IExperienceRepository experienceRepository,
-            IInternRepository internRepository)
+            IInternRepository internRepository,
+            ICurrentUser currentUser)
         {
             _experienceRepository = experienceRepository;
             _internRepository = internRepository;
+            _currentUser = currentUser;
         }
 
         public async Task<PagedResultDto<ExperienceDto>> GetListAsync(ExperienceGetListInput input)
@@ -34,7 +38,8 @@ namespace Pusula.InternManagement.Experiences
             var experiences = await _experienceRepository.GetListAsync(
                input.Sorting,
                input.SkipCount,
-               input.MaxResultCount);
+               input.MaxResultCount,
+               _currentUser.GetId());
 
             // Get a queryable collection of interns from the repository
             var internQuery = await _internRepository.GetQueryableAsync();

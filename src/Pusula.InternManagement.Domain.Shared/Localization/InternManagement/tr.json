@@ -7,8 +7,9 @@
     // Menü
     "InternManagement": "Stajyer Yönetimi",
     "Menu:InternManagement": "Stajyer Yönetimi",
-    "Permission:InternManagementAdminPermissions": "Stajyer Yönetimi Admin İzinleri",
+    "Permission:InternManagementAdminPermissions": "Admin İzinleri",
     "Permission:InternManagement": "Stajyer Yönetimi",
+    "Permission:InternManagementContentPermissions": "İçerik İzinleri",
     "CreatorId": "Oluşturanın ID'si",
     "CreationTime": "Oluşturma Zamanı",
     "LastModifierId": "Son Düzenleyenin ID'si",
@@ -29,6 +30,7 @@
     "Contact": "İletişim",
     "Detail": "Detay",
     "Week": "Hafta",
+    "Contents": "İçerikler",
 
     // Stajyerler
     "NewIntern": "Yeni Stajyer",

@@ -18,6 +18,7 @@ namespace Pusula.InternManagement.Interns
             string sorting,
             int skipCount,
             int maxResultCount,
+            Guid creatorId,
             CancellationToken cancellationToken = default);
 
         Task<InternWithDetails> GetInternAsync(Guid id);

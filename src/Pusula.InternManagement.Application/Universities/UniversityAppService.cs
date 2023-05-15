@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Users;
 
 namespace Pusula.InternManagement.Universities
 {
@@ -16,11 +17,14 @@ namespace Pusula.InternManagement.Universities
     public class UniversityAppService : InternManagementAppService, IUniversityAppService
     {
         private readonly IUniversityRepository _universityRepository;
+        private readonly ICurrentUser _currentUser;
 
         public UniversityAppService(
-            IUniversityRepository universityRepository)
+            IUniversityRepository universityRepository,
+            ICurrentUser currentUser)
         {
             _universityRepository = universityRepository;
+            _currentUser = currentUser;
         }
 
         public async Task<PagedResultDto<UniversityDto>> GetListAsync(UniversityGetListInput input)
@@ -30,7 +34,8 @@ namespace Pusula.InternManagement.Universities
             var universities = await _universityRepository.GetListAsync(
                input.Sorting,
                input.SkipCount,
-               input.MaxResultCount);
+               input.MaxResultCount,
+               _currentUser.GetId());
 
             // Count the total number of university in the repository, optionally filtering by name
             var totalCount = input.Filter == null

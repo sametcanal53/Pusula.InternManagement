@@ -11,6 +11,7 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Users;
 
 namespace Pusula.InternManagement.Interns
 {
@@ -19,11 +20,16 @@ namespace Pusula.InternManagement.Interns
     {
         private readonly IInternRepository _internRepository;
         private readonly IDepartmentRepository _departmentRepository;
+        private readonly ICurrentUser _currentUser;
 
-        public InternAppService(IInternRepository internRepository, IDepartmentRepository departmentRepository)
+        public InternAppService(
+            IInternRepository internRepository,
+            IDepartmentRepository departmentRepository,
+            ICurrentUser currentUser)
         {
             _internRepository = internRepository;
             _departmentRepository = departmentRepository;
+            _currentUser = currentUser;
         }
 
         public async Task<PagedResultDto<InternDto>> GetListAsync(InternGetListInput input)
@@ -33,7 +39,8 @@ namespace Pusula.InternManagement.Interns
             var interns = await _internRepository.GetListAsync(
                 input.Sorting,
                 input.SkipCount,
-                input.MaxResultCount);
+                input.MaxResultCount,
+                _currentUser.GetId());
 
             // Get a queryable collection of interns from the repository
             var internQuery = await _internRepository.GetQueryableAsync();

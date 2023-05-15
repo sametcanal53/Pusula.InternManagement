@@ -21,6 +21,7 @@ namespace Pusula.InternManagement.Courses
             string sorting,
             int skipCount,
             int maxResultCount,
+            Guid creatorId,
             CancellationToken cancellationToken = default
         );
     }

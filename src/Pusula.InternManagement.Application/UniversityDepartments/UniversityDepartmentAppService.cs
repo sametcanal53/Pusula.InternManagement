@@ -9,6 +9,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Users;
 
 namespace Pusula.InternManagement.UniversityDepartments
 {
@@ -16,10 +17,14 @@ namespace Pusula.InternManagement.UniversityDepartments
     public class UniversityDepartmentAppService : InternManagementAppService, IUniversityDepartmentAppService
     {
         private readonly IUniversityDepartmentRepository _universityDepartmentRepository;
+        private readonly ICurrentUser _currentUser;
 
-        public UniversityDepartmentAppService(IUniversityDepartmentRepository universityDepartmentRepository)
+        public UniversityDepartmentAppService(
+            IUniversityDepartmentRepository universityDepartmentRepository,
+            ICurrentUser currentUser)
         {
             _universityDepartmentRepository = universityDepartmentRepository;
+            _currentUser = currentUser;
         }
 
         public async Task<PagedResultDto<UniversityDepartmentDto>> GetListAsync(UniversityDepartmentGetListInput input)
@@ -29,7 +34,8 @@ namespace Pusula.InternManagement.UniversityDepartments
             var universityDepartments = await _universityDepartmentRepository.GetListAsync(
                 input.Sorting,
                 input.SkipCount,
-                input.MaxResultCount);
+                input.MaxResultCount,
+                _currentUser.GetId());
 
             // Count the total number of university departments in the repository, optionally filtering by name
             var totalCount = input.Filter == null

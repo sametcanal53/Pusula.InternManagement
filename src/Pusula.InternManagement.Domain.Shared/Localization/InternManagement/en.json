@@ -7,8 +7,9 @@
     // Menu
     "InternManagement": "Intern Management",
     "Menu:InternManagement": "Intern Management",
-    "Permission:InternManagementAdminPermissions": "Intern Management Admin Permissions",
+    "Permission:InternManagementAdminPermissions": "Admin Permissions",
     "Permission:InternManagement": "Intern Management",
+    "Permission:InternManagementContentPermissions": "Content Permissions",
     "CreatorId": "Creator Id",
     "CreationTime": "Creation Time",
     "LastModifierId": "Last Modifier Id",
@@ -29,6 +30,7 @@
     "Contact": "Contact",
     "Detail": "Detail",
     "Week": "Week",
+    "Contents": "Contents",
 
     // Interns
     "NewIntern": "New Intern",

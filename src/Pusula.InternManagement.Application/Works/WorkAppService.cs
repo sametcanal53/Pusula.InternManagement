@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Users;
 using static Pusula.InternManagement.Permissions.InternManagementPermissions;
 
 namespace Pusula.InternManagement.Works
@@ -19,11 +20,16 @@ namespace Pusula.InternManagement.Works
     {
         private readonly IWorkRepository _workRepository;
         private readonly IInternRepository _internRepository;
+        private readonly ICurrentUser _currentUser;
 
-        public WorkAppService(IWorkRepository workRepository, IInternRepository internRepository)
+        public WorkAppService(
+            IWorkRepository workRepository,
+            IInternRepository internRepository,
+            ICurrentUser currentUser)
         {
             _workRepository = workRepository;
             _internRepository = internRepository;
+            _currentUser = currentUser;
         }
 
         public async Task<PagedResultDto<WorkDto>> GetListAsync(WorkGetListInput input)
@@ -33,7 +39,8 @@ namespace Pusula.InternManagement.Works
             var works = await _workRepository.GetListAsync(
                 input.Sorting,
                 input.SkipCount,
-                input.MaxResultCount);
+                input.MaxResultCount,
+                _currentUser.GetId());
 
             // Get a queryable collection of interns from the repository
             var internQuery = await _internRepository.GetQueryableAsync();

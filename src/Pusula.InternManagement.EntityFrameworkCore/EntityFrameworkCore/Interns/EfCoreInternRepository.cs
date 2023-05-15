@@ -1,9 +1,11 @@
-﻿using Microsoft.EntityFrameworkCore;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.EntityFrameworkCore;
 using Pusula.InternManagement.Courses;
 using Pusula.InternManagement.Educations;
 using Pusula.InternManagement.Experiences;
 using Pusula.InternManagement.Files;
 using Pusula.InternManagement.Interns;
+using Pusula.InternManagement.Permissions;
 using Pusula.InternManagement.Projects;
 using Pusula.InternManagement.Works;
 using System;
@@ -21,8 +23,13 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Interns
 {
     public class EfCoreInternRepository : EfCoreRepository<InternManagementDbContext, Intern, Guid>, IInternRepository
     {
-        public EfCoreInternRepository(IDbContextProvider<InternManagementDbContext> dbContextProvider) : base(dbContextProvider)
+        private readonly IAuthorizationService _authorizationService;
+
+        public EfCoreInternRepository(
+            IDbContextProvider<InternManagementDbContext> dbContextProvider,
+            IAuthorizationService authorizationService) : base(dbContextProvider)
         {
+            _authorizationService = authorizationService;
         }
 
         public async Task<Intern> FindByNameAsync(string name)
@@ -34,15 +41,19 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Interns
             return await dbSet.FirstOrDefaultAsync(intern => intern.Name == name);
         }
 
-        public async Task<List<Intern>> GetListAsync(string sorting, int skipCount, int maxResultCount, CancellationToken cancellationToken = default)
+        public async Task<List<Intern>> GetListAsync(string sorting, int skipCount, int maxResultCount, Guid creatorId, CancellationToken cancellationToken = default)
         {
             // Gets the DbSet<Intern> from the DbContext
             var dbSet = await GetDbSetAsync();
+
+            // Check if the user has admin permission for the Interns module
+            var isAdmin = await _authorizationService.IsGrantedAsync(InternManagementPermissions.Interns.Admin);
 
             // Retrieve the requested page of Intern entities
             // from the database, ordered by the specified sorting criteria (or by intern name if sorting is not specified),
             // using the provided skip and take values, and asynchronously convert the results to a list using the cancellation token, and return the resulting list.
             return await dbSet
+                .WhereIf(!isAdmin, intern => intern.CreatorId == creatorId)
                 .OrderBy(!string.IsNullOrWhiteSpace(sorting) ? sorting : nameof(Intern.Name))
                 .PageBy(skipCount, maxResultCount)
                 .ToListAsync(GetCancellationToken(cancellationToken));

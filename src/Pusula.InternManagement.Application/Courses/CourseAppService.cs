@@ -11,6 +11,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Users;
 
 namespace Pusula.InternManagement.Courses
 {
@@ -21,17 +22,20 @@ namespace Pusula.InternManagement.Courses
         private readonly CourseManager _courseManager;
         private readonly IInternRepository _internRepository;
         private readonly IInstructorRepository _instructorRepository;
+        private readonly ICurrentUser _currentUser;
 
         public CourseAppService(
             ICourseRepository courseRepository,
             CourseManager courseManager,
             IInternRepository internRepository,
-            IInstructorRepository instructorRepository)
+            IInstructorRepository instructorRepository,
+            ICurrentUser currentUser)
         {
             _courseRepository = courseRepository;
             _courseManager = courseManager;
             _internRepository = internRepository;
             _instructorRepository = instructorRepository;
+            _currentUser = currentUser;
         }
 
         public async Task<PagedResultDto<CourseDto>> GetListAsync(CourseGetListInput input)
@@ -41,7 +45,8 @@ namespace Pusula.InternManagement.Courses
             var courses = await _courseRepository.GetListAsync(
                 input.Sorting,
                 input.SkipCount,
-                input.MaxResultCount);
+                input.MaxResultCount,
+                _currentUser.GetId());
 
             // Count the total number of course in the repository, optionally filtering by name
             var totalCount = input.Filter == null

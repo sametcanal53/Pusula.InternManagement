@@ -12,6 +12,7 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Users;
 
 namespace Pusula.InternManagement.Educations
 {
@@ -22,17 +23,20 @@ namespace Pusula.InternManagement.Educations
         private readonly IUniversityRepository _universityRepository;
         private readonly IUniversityDepartmentRepository _universityDepartmentRepository;
         private readonly IInternRepository _internRepository;
+        private readonly ICurrentUser _currentUser;
 
         public EducationAppService(
             IEducationRepository educationRepository,
             IUniversityRepository universityRepository,
             IUniversityDepartmentRepository universityDepartmentRepository,
-            IInternRepository internRepository)
+            IInternRepository internRepository,
+            ICurrentUser currentUser)
         {
             _educationRepository = educationRepository;
             _universityRepository = universityRepository;
             _universityDepartmentRepository = universityDepartmentRepository;
             _internRepository = internRepository;
+            _currentUser = currentUser;
         }
 
         public async Task<PagedResultDto<EducationDto>> GetListAsync(EducationGetListInput input)
@@ -42,7 +46,8 @@ namespace Pusula.InternManagement.Educations
             var educations = await _educationRepository.GetListAsync(
                input.Sorting,
                input.SkipCount,
-               input.MaxResultCount);
+               input.MaxResultCount,
+               _currentUser.GetId());
 
             // Get a queryable collection of university from the repository
             var universityQuery = await _universityRepository.GetQueryableAsync();
