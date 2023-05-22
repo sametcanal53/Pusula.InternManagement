@@ -11,6 +11,8 @@ using System.Threading.Tasks;
 using Volo.Abp.Application.Dtos;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories;
+using Volo.Abp.Identity;
+using Volo.Abp.Uow;
 using Volo.Abp.Users;
 
 namespace Pusula.InternManagement.Interns
@@ -21,15 +23,18 @@ namespace Pusula.InternManagement.Interns
         private readonly IInternRepository _internRepository;
         private readonly IDepartmentRepository _departmentRepository;
         private readonly ICurrentUser _currentUser;
+        private readonly IdentityUserManager _identityUserManager;
 
         public InternAppService(
             IInternRepository internRepository,
             IDepartmentRepository departmentRepository,
-            ICurrentUser currentUser)
+            ICurrentUser currentUser,
+            IdentityUserManager identityUserManager)
         {
             _internRepository = internRepository;
             _departmentRepository = departmentRepository;
             _currentUser = currentUser;
+            _identityUserManager = identityUserManager;
         }
 
         public async Task<PagedResultDto<InternDto>> GetListAsync(InternGetListInput input)
@@ -107,9 +112,10 @@ namespace Pusula.InternManagement.Interns
 
             // Insert the new intern entity into the repository
             var intern = await _internRepository.InsertAsync(
-                new Intern(GuidGenerator.Create(), input.DepartmentId, input.Name, input.Surname, input.PhoneNumber, input.Email, input.Password, input.StartDate, input.EndDate));
+                new Intern(GuidGenerator.Create(), input.DepartmentId, input.Name, input.Surname, input.PhoneNumber, input.Email, input.Password, input.StartDate, input.EndDate), autoSave: true);
 
             Log.Logger.Debug($"Successfully created a new intern with ID {intern.Id}");
+            await _identityUserManager.AddDefaultRolesAsync(intern);
             // Map the entity to a DTO and return it
             return ObjectMapper.Map<Intern, InternDto>(intern);
         }
@@ -163,12 +169,6 @@ namespace Pusula.InternManagement.Interns
         public async Task<InternWithDetailsDto> GetInternWithDetailsAsync(Guid id)
         {
             var intern = await _internRepository.GetInternAsync(id);
-
-            if (intern == null)
-            {
-                // throw a custom exception indicating that the intern was not found
-                throw new EntityNotFoundException("Intern not found.");
-            }
 
             // map the Intern entity to the InternDto object using AutoMapper
             return ObjectMapper.Map<InternWithDetails, InternWithDetailsDto>(intern);
