@@ -242,6 +242,7 @@
     "InternManagement:9": "The file extension is not supported. Please upload a {fileType} file.",
     "InternManagement:10": "There is already a file with the same name: {name}",
     "InternManagement:11": "File not found, check filename: {name}",
-    "InternManagement:12": "End date cannot be before the start date."
+    "InternManagement:12": "End date cannot be before the start date.",
+    "InternManagement:13": "{input} should only contain numbers."
   }
 }

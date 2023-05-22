@@ -5,6 +5,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
+#nullable disable
 namespace Pusula.InternManagement.Interns
 {
     public class PasswordHelper

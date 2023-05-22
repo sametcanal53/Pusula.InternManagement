@@ -26,7 +26,7 @@ namespace Pusula.InternManagement.Interns
         public Intern(Guid id, Guid departmentId, string name, string surname, string phoneNumber, string email, string password, DateTime startDate, DateTime endDate) : base(id, email.Split('@')[0], email)
         {
             DepartmentId = departmentId;
-            SetName(name); 
+            SetName(name);
             SetSurname(surname);
             SetPhoneNumber(phoneNumber);
             SetEmail(email);
@@ -46,6 +46,9 @@ namespace Pusula.InternManagement.Interns
         }
         public void SetPhoneNumber(string phoneNumber)
         {
+            foreach (char c in phoneNumber)
+                if (!Char.IsDigit(c))
+                    throw new NumericInputException(phoneNumber);
             PhoneNumber = phoneNumber;
         }
         public void SetEmail(string email)

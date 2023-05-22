@@ -242,6 +242,7 @@
     "InternManagement:9": "Dosya uzantısı desteklenmiyor. Lütfen bir {fileType} dosyası yükleyin.",
     "InternManagement:10": "Aynı isimde bir dosya zaten mevcut: {name}",
     "InternManagement:11": "Dosya bulunamadı, dosya adını kontrol edin: {name}",
-    "InternManagement:12": "Bitiş tarihi başlangıç tarihinden önce olamaz."
+    "InternManagement:12": "Bitiş tarihi başlangıç tarihinden önce olamaz.",
+    "InternManagement:13": "{input} sadece sayı içermelidir"
   }
 }

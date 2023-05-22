@@ -17,5 +17,6 @@ public static class InternManagementDomainErrorCodes
     public const string FileNameAlreadyExists = "InternManagement:10";
     public const string FileNotFound = "InternManagement:11";
     public const string DateInputError = "InternManagement:12";
+    public const string NumericInputError = "InternManagement:13";
 
 }
