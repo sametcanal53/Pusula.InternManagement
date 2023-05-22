@@ -18,5 +18,5 @@ public static class InternManagementDomainErrorCodes
     public const string FileNotFound = "InternManagement:11";
     public const string DateInputError = "InternManagement:12";
     public const string NumericInputError = "InternManagement:13";
-
+    public const string DateInputErrorWithParameters = "InternManagement:14";
 }

@@ -106,7 +106,7 @@ namespace Pusula.InternManagement.Works
             var intern = await _internRepository.GetAsync(input.InternId);
             if (input.Date > intern.EndDate || input.Date < intern.StartDate)
             {
-                throw new DateInputException();
+                throw new DateInputException(input.Date.ToString("d MMMM yyyy"));
             }
 
             // Insert the new work entity into the repository

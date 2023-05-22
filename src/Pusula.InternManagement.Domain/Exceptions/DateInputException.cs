@@ -13,5 +13,11 @@ namespace Pusula.InternManagement.Exceptions
             : base(InternManagementDomainErrorCodes.DateInputError)
         {
         }
+
+        public DateInputException(string input)
+            : base(InternManagementDomainErrorCodes.DateInputErrorWithParameters)
+        {
+            WithData("input", input);
+        }
     }
 }
