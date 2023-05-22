@@ -42,7 +42,7 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Base
             var query = dbSet.AsQueryable();
 
             return await query
-                .WhereIf(!isAdmin, entity => EF.Property<Guid>(entity, "CreatorId") == creatorId)
+                .WhereIf(!isAdmin, entity => EF.Property<Guid>(entity, "CreatorId") == creatorId || EF.Property<Guid>(entity, "InternId") == creatorId)
                 .OrderBy(!string.IsNullOrWhiteSpace(sorting) ? sorting : GetDefaultSorting())
                 .PageBy(skipCount, maxResultCount)
                 .ToListAsync(GetCancellationToken(cancellationToken));

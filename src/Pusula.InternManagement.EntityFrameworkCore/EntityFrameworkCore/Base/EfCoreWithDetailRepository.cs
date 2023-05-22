@@ -48,7 +48,7 @@ namespace Pusula.InternManagement.EntityFrameworkCore.Base
             var isAdmin = await _authorizationService.IsGrantedAsync(GetPermissionForModule());
 
             return await query
-                .WhereIf(!isAdmin, entity => EF.Property<Guid?>(entity, "CreatorId").Equals(creatorId))
+                .WhereIf(!isAdmin, entity => EF.Property<Guid?>(entity, "CreatorId") == creatorId)
                 .OrderBy(!string.IsNullOrWhiteSpace(sorting) ? sorting : GetDefaultSorting())
                 .PageBy(skipCount, maxResultCount)
                 .ToListAsync(GetCancellationToken(cancellationToken));
