@@ -46,6 +46,7 @@ public class InternManagementWebAutoMapperProfile : Profile
         CreateMap<CreateInternViewModel, CreateInternDto>();
         CreateMap<InternDto, EditInternViewModel>();
         CreateMap<EditInternViewModel, UpdateInternDto>();
+        CreateMap<CreateInternViewModel, Intern>();
 
         CreateMap<CreateDepartmentViewModel, CreateDepartmentDto>();
         CreateMap<DepartmentDto, EditDepartmentViewModel>();

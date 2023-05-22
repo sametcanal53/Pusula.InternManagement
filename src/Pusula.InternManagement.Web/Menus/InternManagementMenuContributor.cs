@@ -43,6 +43,13 @@ public class InternManagementMenuContributor : IMenuContributor
                 icon: "fa fa-list"
             ).AddItem(
                 new ApplicationMenuItem(
+                    "InternManagement.Interns",
+                    l["Menu:Interns"],
+                    url: "/Interns",
+                    icon: "fa fa-user"
+                ).RequirePermissions(InternManagementPermissions.Interns.Default)
+            ).AddItem(
+                new ApplicationMenuItem(
                     "InternManagement.Courses",
                     l["Menu:Courses"],
                     url: "/Courses",
@@ -69,13 +76,6 @@ public class InternManagementMenuContributor : IMenuContributor
                     url: "/Files",
                     icon: "fa fa-download"
                 ).RequirePermissions(InternManagementPermissions.Files.Default)
-            ).AddItem(
-                new ApplicationMenuItem(
-                    "InternManagement.Interns",
-                    l["Menu:Interns"],
-                    url: "/Interns",
-                    icon: "fa fa-user"
-                ).RequirePermissions(InternManagementPermissions.Interns.Default)
             ).AddItem(
                 new ApplicationMenuItem(
                     "InternManagement.Projects",

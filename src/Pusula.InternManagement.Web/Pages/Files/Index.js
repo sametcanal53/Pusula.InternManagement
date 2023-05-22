@@ -26,7 +26,7 @@ $(function () {
                                     action: function (data) {
                                         var fileName = data.record.name;
                                         var internId = data.record.internId;
-                                        fetch('/download/' + internId + "/" + fileName)
+                                        fetch('api/app/file/download/' + internId + "/" + fileName)
                                             .then(response => response.blob())
                                             .then(blob => {
                                                 var url = window.URL.createObjectURL(blob);
@@ -38,6 +38,7 @@ $(function () {
                                                 a.remove();
                                             });
                                     }
+
 
                                 },
                                 {
