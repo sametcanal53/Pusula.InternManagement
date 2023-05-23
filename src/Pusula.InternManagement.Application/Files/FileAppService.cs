@@ -112,12 +112,12 @@ namespace Pusula.InternManagement.Files
             // Construct the folder name where the file will be saved
             var blobFolderName = $"{intern.Id}/{input.Name}";
 
+            // Check if a file with the same name already exists in the repository
             var existsFile = await _fileRepository.FindByIdAndNameAsync(input.InternId, input.Name);
             if (existsFile != null)
             {
                 throw new FileNameAlreadyExistsException(input.Name);
             }
-
 
             // Check if the file extension is .pdf and save the file to the blob storage
             if (Path.GetExtension(input.Name) != ".pdf")
