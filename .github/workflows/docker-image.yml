@@ -15,4 +15,4 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: Build the Docker image
-      run: docker build . --file Pusula.InternManagement.Web/DockerFile --tag intern:dev
+      run: docker build . --file DockerFile --tag intern:dev
