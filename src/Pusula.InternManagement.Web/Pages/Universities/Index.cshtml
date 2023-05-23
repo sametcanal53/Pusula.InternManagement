@@ -1,0 +1,34 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.Extensions.Localization;
+@using Pusula.InternManagement.Localization;
+@using Pusula.InternManagement.Permissions;
+@model Pusula.InternManagement.Web.Pages.Universities.IndexModel
+@inject IStringLocalizer<InternManagementResource> L
+@inject IAuthorizationService AuthorizationService
+@section scripts{
+    <abp-script src="/Pages/Universities/Index.js" />
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Universities"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                @if (await AuthorizationService.IsGrantedAsync(InternManagementPermissions.Universities.Create))
+                {
+                    <abp-button id="NewUniversityButton"
+                            text="@L["NewUniversity"].Value"
+                            icon="plus"
+                            button-type="Primary" />
+                }
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="UniversitiesTable"></abp-table>
+    </abp-card-body>
+</abp-card>
+

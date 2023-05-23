@@ -1,0 +1,27 @@
+﻿@page
+@using Microsoft.Extensions.Localization;
+@using Pusula.InternManagement.Localization;
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
+@model Pusula.InternManagement.Web.Pages.Instructors.EditModalModel
+@inject IStringLocalizer<InternManagementResource> L
+@{
+    Layout = null;
+}
+
+<form method="post" id="EditInstructorModal" asp-page="/Instructors/EditModal">
+    <abp-modal>
+        <abp-modal-header title="@L["EditInstructor"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-tabs name="edit-instructor-modal-tabs">
+                <abp-tab title="@L["Instructor"]" class="mt-3">
+                    <div id="instructor-information-wrapper">
+                        <abp-input asp-for="Instructor.Id" />
+                        <abp-input asp-for="Instructor.Name" label="@L["Name"]" />
+                        <abp-input asp-for="Instructor.Title" label="@L["Title"]" />
+                    </div>
+                </abp-tab>
+            </abp-tabs>
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

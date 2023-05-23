@@ -1,0 +1,35 @@
+﻿@page
+@using Microsoft.AspNetCore.Authorization;
+@using Microsoft.Extensions.Localization;
+@using Pusula.InternManagement.Localization;
+@using Pusula.InternManagement.Permissions;
+@model Pusula.InternManagement.Web.Pages.Projects.IndexModel
+@inject IStringLocalizer<InternManagementResource> L
+@inject IAuthorizationService AuthorizationService
+@section scripts{
+    <abp-script src="/Pages/Projects/Index.js" />
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["Projects"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                @if (await AuthorizationService.IsGrantedAsync(InternManagementPermissions.Projects.Create))
+                {
+                    <abp-button id="NewProjectButton"
+                            text="@L["NewProject"].Value"
+                            icon="plus"
+                            button-type="Primary" />
+                }
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="ProjectsTable"></abp-table>
+    </abp-card-body>
+</abp-card>
+
+

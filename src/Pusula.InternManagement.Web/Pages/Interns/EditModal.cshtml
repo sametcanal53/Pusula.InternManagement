@@ -1,0 +1,37 @@
+﻿@page
+@using Microsoft.Extensions.Localization;
+@using Pusula.InternManagement.Localization;
+@using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Modal;
+@model Pusula.InternManagement.Web.Pages.Interns.EditModalModel
+@inject IStringLocalizer<InternManagementResource> L
+@{
+    Layout = null;
+}
+
+<form method="post" id="EditInternModal" asp-page="/Interns/EditModal">
+    <abp-modal>
+        <abp-modal-header title="@L["EditIntern"].Value"></abp-modal-header>
+        <abp-modal-body>
+            <abp-tabs name="edit-intern-modal-tabs">
+                <abp-tab title="@L["Intern"]" class="mt-3">
+                    <div id="intern-information-wrapper">
+                        <abp-input asp-for="Intern.Id" />
+                        <abp-input asp-for="Intern.Name" label="@L["Name"]" />
+                        <abp-input asp-for="Intern.Surname" label="@L["Surname"]" />
+                        <abp-input asp-for="Intern.PhoneNumber" label="@L["PhoneNumber"]" />
+                        <abp-input asp-for="Intern.Email" label="@L["Email"]" />
+                        <abp-input asp-for="Intern.Password" label="@L["Password"]" />
+                        <abp-input asp-for="Intern.StartDate" label="@L["StartDate"]" />
+                        <abp-input asp-for="Intern.EndDate" label="@L["EndDate"]" />
+                    </div>
+                </abp-tab>
+                <abp-tab title="@L["Department"]" class="mt-3">
+                    <div id="departments-list-wrapper">
+                        <abp-select asp-for="Intern.DepartmentId" label="@L["Department"]" />
+                    </div>
+                </abp-tab>
+            </abp-tabs>
+        </abp-modal-body>
+        <abp-modal-footer buttons="@(AbpModalButtons.Cancel|AbpModalButtons.Save)"></abp-modal-footer>
+    </abp-modal>
+</form>

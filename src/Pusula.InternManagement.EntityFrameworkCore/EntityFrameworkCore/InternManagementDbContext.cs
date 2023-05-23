@@ -1,9 +1,21 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using Pusula.InternManagement.Courses;
+using Pusula.InternManagement.Departments;
+using Pusula.InternManagement.Educations;
+using Pusula.InternManagement.Experiences;
+using Pusula.InternManagement.Files;
+using Pusula.InternManagement.Instructors;
+using Pusula.InternManagement.Interns;
+using Pusula.InternManagement.Projects;
+using Pusula.InternManagement.Universities;
+using Pusula.InternManagement.UniversityDepartments;
+using Pusula.InternManagement.Works;
 using Volo.Abp.AuditLogging.EntityFrameworkCore;
 using Volo.Abp.BackgroundJobs.EntityFrameworkCore;
 using Volo.Abp.Data;
 using Volo.Abp.DependencyInjection;
 using Volo.Abp.EntityFrameworkCore;
+using Volo.Abp.EntityFrameworkCore.Modeling;
 using Volo.Abp.FeatureManagement.EntityFrameworkCore;
 using Volo.Abp.Identity;
 using Volo.Abp.Identity.EntityFrameworkCore;
@@ -52,6 +64,20 @@ public class InternManagementDbContext :
 
     #endregion
 
+    public DbSet<Intern> Interns { get; set; }
+    public DbSet<Department> Departments { get; set; }
+    public DbSet<Education> Educations { get; set; }
+    public DbSet<University> Universities { get; set; }
+    public DbSet<UniversityDepartment> UniversityDepartments { get; set; }
+    public DbSet<Experience> Experiences { get; set; }
+    public DbSet<Project> Projects { get; set; }
+    public DbSet<ProjectIntern> ProjectInterns { get; set; }
+    public DbSet<Course> Courses { get; set; }
+    public DbSet<Instructor> Instructors { get; set; }
+    public DbSet<CourseIntern> CourseInterns { get; set; }
+    public DbSet<CourseInstructor> CourseInstructors { get; set; }
+    public DbSet<File> Files { get; set; }
+    public DbSet<Work> Works { get; set; }
     public InternManagementDbContext(DbContextOptions<InternManagementDbContext> options)
         : base(options)
     {
@@ -81,5 +107,158 @@ public class InternManagementDbContext :
         //    b.ConfigureByConvention(); //auto configure for the base class props
         //    //...
         //});
+
+        builder.Entity<Intern>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Interns",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            //b.Property(x => x.Name).IsRequired().HasMaxLength(InternConsts.MaxNameLength);
+
+            b.HasOne<Department>().WithMany().HasForeignKey(x => x.DepartmentId).IsRequired();
+        });
+
+        builder.Entity<Department>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Departments",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(DepartmentConsts.MaxNameLength);
+
+            b.HasIndex(x => x.Name);
+        });
+
+        builder.Entity<Education>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Educations",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(EducationConsts.MaxNameLength);
+
+            b.HasOne<University>().WithMany().HasForeignKey(x => x.UniversityId).IsRequired();
+            b.HasOne<UniversityDepartment>().WithMany().HasForeignKey(x => x.UniversityDepartmentId).IsRequired();
+            b.HasOne<Intern>().WithMany().HasForeignKey(x => x.InternId).IsRequired();
+        });
+
+        builder.Entity<University>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Universities",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(UniversityConsts.MaxNameLength);
+        });
+
+        builder.Entity<UniversityDepartment>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "UniversityDepartments",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(UniversityDepartmentConsts.MaxNameLength);
+        });
+
+        builder.Entity<Experience>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Experiences",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(ExperienceConsts.MaxNameLength);
+            b.Property(x => x.Description).IsRequired().HasMaxLength(ExperienceConsts.MaxCompanyNameLength);
+            b.Property(x => x.Title).IsRequired().HasMaxLength(ExperienceConsts.MaxTitleLength);
+            b.Property(x => x.CompanyName).IsRequired().HasMaxLength(ExperienceConsts.MaxCompanyNameLength);
+
+            b.HasOne<Intern>().WithMany().HasForeignKey(x => x.InternId).IsRequired();
+        });
+
+        builder.Entity<Project>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Projects",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(ProjectConsts.MaxNameLength);
+            b.Property(x => x.Description).IsRequired().HasMaxLength(ProjectConsts.MaxDescriptionLength);
+
+            b.HasMany(x => x.Interns).WithOne().HasForeignKey(x => x.ProjectId).IsRequired();
+        });
+
+        builder.Entity<ProjectIntern>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "ProjectInterns",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+
+            b.HasKey(x => new { x.ProjectId, x.InternId });
+            b.HasOne<Intern>().WithMany().HasForeignKey(x => x.InternId).IsRequired(); 
+            b.HasOne<Project>().WithMany(x => x.Interns).HasForeignKey(x => x.ProjectId).IsRequired();
+            
+
+            b.HasIndex(x => new { x.ProjectId, x.InternId });
+
+        });
+
+        builder.Entity<Course>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Courses",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(CourseConsts.MaxNameLength);
+
+            b.HasMany(x => x.Interns).WithOne().HasForeignKey(x => x.CourseId).IsRequired();
+            b.HasMany(x => x.Instructors).WithOne().HasForeignKey(x => x.InstructorId).IsRequired();
+        });
+
+        builder.Entity<Instructor>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Instructors",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(InstructorConsts.MaxNameLength);
+            b.Property(x => x.Title).IsRequired().HasMaxLength(InstructorConsts.MaxTitleLength);
+        });
+
+        builder.Entity<CourseIntern>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "CourseInterns",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+
+            b.HasKey(x => new { x.CourseId, x.InternId });
+            b.HasOne<Course>().WithMany(x => x.Interns).HasForeignKey(x => x.CourseId).IsRequired();
+            b.HasOne<Intern>().WithMany().HasForeignKey(x => x.InternId).IsRequired();
+
+            b.HasIndex(x => new { x.CourseId, x.InternId });
+        });
+
+        builder.Entity<CourseInstructor>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "CourseInstructors",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+
+            b.HasKey(x => new { x.CourseId, x.InstructorId });
+            b.HasOne<Course>().WithMany(x => x.Instructors).HasForeignKey(x => x.CourseId).IsRequired();
+            b.HasOne<Instructor>().WithMany().HasForeignKey(x => x.InstructorId).IsRequired();
+
+            b.HasIndex(x => new { x.CourseId, x.InstructorId });
+        });
+        
+        builder.Entity<File>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Files",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(FileConsts.MaxNameLength);
+
+            b.HasOne<Intern>().WithMany().HasForeignKey(x => x.InternId).IsRequired();
+        });
+
+        builder.Entity<Work>(b =>
+        {
+            b.ToTable(InternManagementConsts.DbTablePrefix + "Works",
+                InternManagementConsts.DbSchema);
+            b.ConfigureByConvention(); //auto configure for the base class props
+            b.Property(x => x.Name).IsRequired().HasMaxLength(WorkConsts.MaxNameLength);
+
+            b.HasOne<Intern>().WithMany().HasForeignKey(x => x.InternId).IsRequired();
+        });
     }
 }

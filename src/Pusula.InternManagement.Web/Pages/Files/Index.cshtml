@@ -1,0 +1,27 @@
+﻿@page
+@using Microsoft.Extensions.Localization;
+@using Pusula.InternManagement.Localization;
+@model Pusula.InternManagement.Web.Pages.Files.IndexModel
+@inject IStringLocalizer<InternManagementResource> L
+@section scripts{
+    <abp-script src="/Pages/Files/Index.js" />
+}
+
+<abp-card>
+    <abp-card-header>
+        <abp-row>
+            <abp-column size-md="_6">
+                <abp-card-title>@L["FileUpload"]</abp-card-title>
+            </abp-column>
+            <abp-column size-md="_6" class="text-end">
+                <abp-button id="NewFileButton"
+                            text="@L["NewFile"].Value"
+                            icon="plus"
+                            button-type="Primary" />
+            </abp-column>
+        </abp-row>
+    </abp-card-header>
+    <abp-card-body>
+        <abp-table striped-rows="true" id="FilesTable"></abp-table>
+    </abp-card-body>
+</abp-card>

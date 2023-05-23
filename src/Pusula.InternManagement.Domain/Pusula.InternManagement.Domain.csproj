@@ -9,10 +9,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Pusula.InternManagement.Application.Contracts\Pusula.InternManagement.Application.Contracts.csproj" />
     <ProjectReference Include="..\Pusula.InternManagement.Domain.Shared\Pusula.InternManagement.Domain.Shared.csproj" />
   </ItemGroup>
 
   <ItemGroup>
+    <PackageReference Include="Volo.Abp.BlobStoring.Azure" Version="7.1.1" />
     <PackageReference Include="Volo.Abp.Emailing" Version="7.1.1" />
     <PackageReference Include="Volo.Abp.Identity.Domain" Version="7.1.1" />
     <PackageReference Include="Volo.Abp.PermissionManagement.Domain.Identity" Version="7.1.1" />
