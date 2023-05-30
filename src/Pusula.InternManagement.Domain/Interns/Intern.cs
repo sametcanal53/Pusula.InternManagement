@@ -12,7 +12,6 @@ using JetBrains.Annotations;
 using Volo.Abp.Users;
 using Microsoft.AspNetCore.Identity;
 
-#nullable disable
 namespace Pusula.InternManagement.Interns
 {
     public class Intern : IdentityUser //FullAuditedAggregateRoot<Guid>

@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Volo.Abp.Domain.Entities.Auditing;
 using Volo.Abp;
 
-#nullable disable
 namespace Pusula.InternManagement.UniversityDepartments
 {
     public class UniversityDepartment : FullAuditedAggregateRoot<Guid>

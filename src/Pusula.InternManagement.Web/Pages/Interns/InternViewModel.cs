@@ -3,7 +3,6 @@ using System.ComponentModel.DataAnnotations;
 using System;
 using Volo.Abp.Auditing;
 
-#nullable disable
 namespace Pusula.InternManagement.Web.Pages.Interns
 {
     public class InternViewModel : IMustHaveCreator

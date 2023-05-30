@@ -4,7 +4,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Text;
 using Volo.Abp.Identity;
 
-#nullable disable
 namespace Pusula.InternManagement.Interns
 {
     public class CreateInternDto : IdentityUserCreateDto

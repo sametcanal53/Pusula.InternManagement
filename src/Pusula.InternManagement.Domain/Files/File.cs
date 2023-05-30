@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Volo.Abp;
 using Volo.Abp.Domain.Entities.Auditing;
 
-#nullable disable
 namespace Pusula.InternManagement.Files
 {
     public class File : CreationAuditedAggregateRoot<Guid>

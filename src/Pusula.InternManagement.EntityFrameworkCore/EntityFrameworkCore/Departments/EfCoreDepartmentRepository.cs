@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-#nullable disable
 namespace Pusula.InternManagement.EntityFrameworkCore.Departments
 {
     public class EfCoreDepartmentRepository : EfCoreBaseRepository<Department, Guid>, IDepartmentRepository

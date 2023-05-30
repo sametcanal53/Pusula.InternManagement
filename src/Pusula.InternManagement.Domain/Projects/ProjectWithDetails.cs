@@ -5,7 +5,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Auditing;
 
-#nullable disable
 namespace Pusula.InternManagement.Projects
 {
     public class ProjectWithDetails : IFullAuditedObject

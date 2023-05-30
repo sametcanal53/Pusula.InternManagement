@@ -15,7 +15,6 @@ using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-#nullable disable
 namespace Pusula.InternManagement.EntityFrameworkCore.Courses
 {
     public class EfCoreCourseRepository : EfCoreWithDetailRepository<Course, Guid, CourseWithDetails>, ICourseRepository

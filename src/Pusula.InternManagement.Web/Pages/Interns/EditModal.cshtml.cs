@@ -10,7 +10,6 @@ using System;
 using Volo.Abp.AspNetCore.Mvc.UI.Bootstrap.TagHelpers.Form;
 using System.Linq;
 
-#nullable disable
 namespace Pusula.InternManagement.Web.Pages.Interns
 {
     public class EditModalModel : InternManagementPageModel

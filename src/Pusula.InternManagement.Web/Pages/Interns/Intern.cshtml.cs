@@ -15,7 +15,6 @@ using System.Text;
 using System.Security.Cryptography;
 using Volo.Abp.Security.Encryption;
 
-#nullable disable
 namespace Pusula.InternManagement.Web.Pages.Interns
 {
     public class InternModel : InternManagementPageModel

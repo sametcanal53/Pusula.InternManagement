@@ -15,7 +15,6 @@ using Microsoft.AspNetCore.Authorization;
 using Pusula.InternManagement.Permissions;
 using Pusula.InternManagement.Projects;
 
-#nullable disable
 namespace Pusula.InternManagement.Web.Pages.Courses
 {
     public class EditModalModel : InternManagementPageModel

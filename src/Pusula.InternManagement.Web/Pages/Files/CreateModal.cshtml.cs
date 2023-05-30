@@ -16,7 +16,6 @@ using Microsoft.AspNetCore.Authorization;
 using Pusula.InternManagement.Permissions;
 using Pusula.InternManagement.Works;
 
-#nullable disable
 namespace Pusula.InternManagement.Web.Pages.Files
 {
     public class CreateModalModel : InternManagementPageModel

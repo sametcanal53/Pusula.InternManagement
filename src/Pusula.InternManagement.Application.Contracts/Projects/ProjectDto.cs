@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text;
 using Volo.Abp.Application.Dtos;
 
-#nullable disable
 namespace Pusula.InternManagement.Projects
 {
     public class ProjectDto : FullAuditedEntityDto<Guid>

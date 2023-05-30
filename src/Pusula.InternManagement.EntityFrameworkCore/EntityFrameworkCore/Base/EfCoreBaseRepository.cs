@@ -11,7 +11,6 @@ using Volo.Abp.Domain.Entities;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-#nullable disable
 namespace Pusula.InternManagement.EntityFrameworkCore.Base
 {
     public abstract class EfCoreBaseRepository<TEntity, TKey> : EfCoreRepository<InternManagementDbContext, TEntity, TKey>

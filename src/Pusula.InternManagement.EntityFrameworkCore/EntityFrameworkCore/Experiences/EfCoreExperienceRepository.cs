@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-#nullable disable
 namespace Pusula.InternManagement.EntityFrameworkCore.Experiences
 {
     public class EfCoreExperienceRepository : EfCoreBaseRepository<Experience, Guid>, IExperienceRepository

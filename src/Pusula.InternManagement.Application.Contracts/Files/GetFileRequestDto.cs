@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 using System.Text;
 
-#nullable disable
 namespace Pusula.InternManagement.Files
 {
     public class GetFileRequestDto

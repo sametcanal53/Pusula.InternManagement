@@ -13,7 +13,6 @@ using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-#nullable disable
 namespace Pusula.InternManagement.EntityFrameworkCore.Instructors
 {
     public class EfCoreInstructorRepository : EfCoreBaseRepository<Instructor, Guid>, IInstructorRepository

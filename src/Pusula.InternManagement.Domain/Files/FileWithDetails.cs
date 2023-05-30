@@ -6,7 +6,6 @@ using System.Threading.Tasks;
 using Volo.Abp.Auditing;
 
 
-#nullable disable
 namespace Pusula.InternManagement.Files
 {
     public class FileWithDetails : IHasCreationTime

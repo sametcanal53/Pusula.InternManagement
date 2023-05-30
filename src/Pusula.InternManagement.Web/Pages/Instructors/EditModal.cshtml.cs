@@ -5,7 +5,6 @@ using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 using System;
 
-#nullable disable
 namespace Pusula.InternManagement.Web.Pages.Instructors
 {
     public class EditModalModel : InternManagementPageModel

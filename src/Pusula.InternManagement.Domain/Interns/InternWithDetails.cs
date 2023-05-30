@@ -11,7 +11,6 @@ using System.Text;
 using System.Threading.Tasks;
 using Volo.Abp.Auditing;
 
-#nullable disable
 namespace Pusula.InternManagement.Interns
 {
     public class InternWithDetails : IFullAuditedObject

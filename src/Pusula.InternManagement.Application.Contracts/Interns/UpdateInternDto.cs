@@ -6,7 +6,6 @@ using System.Text;
 using Volo.Abp.Domain.Entities;
 using Volo.Abp.Identity;
 
-#nullable disable
 namespace Pusula.InternManagement.Interns
 {
     public class UpdateInternDto : IdentityUserCreateOrUpdateDtoBase, IHasConcurrencyStamp

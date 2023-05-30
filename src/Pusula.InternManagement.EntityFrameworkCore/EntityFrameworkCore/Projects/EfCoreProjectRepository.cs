@@ -14,7 +14,6 @@ using System.Threading.Tasks;
 using Volo.Abp.Domain.Repositories.EntityFrameworkCore;
 using Volo.Abp.EntityFrameworkCore;
 
-#nullable disable
 namespace Pusula.InternManagement.EntityFrameworkCore.Projects
 {
     public class EfCoreProjectRepository : EfCoreWithDetailRepository<Project, Guid, ProjectWithDetails>, IProjectRepository
