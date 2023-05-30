@@ -4,7 +4,6 @@ using Pusula.InternManagement.Educations;
 using Pusula.InternManagement.Experiences;
 using Pusula.InternManagement.Instructors;
 using Pusula.InternManagement.Interns;
-using Pusula.InternManagement.Permissions;
 using Pusula.InternManagement.Projects;
 using Pusula.InternManagement.Universities;
 using Pusula.InternManagement.UniversityDepartments;
@@ -19,7 +18,6 @@ using Volo.Abp.DependencyInjection;
 using Volo.Abp.Domain.Repositories;
 using Volo.Abp.Guids;
 using Volo.Abp.Identity;
-using Volo.Abp.PermissionManagement;
 
 namespace Pusula.InternManagement
 {
@@ -41,7 +39,6 @@ namespace Pusula.InternManagement
         private readonly IWorkRepository _workRepository;
         private readonly IdentityUserManager _identityUserManager;
         private readonly IdentityRoleManager _identityRoleManager;
-        private readonly IPermissionManager _permissionManager;
 
         public InternManagementDataSeederContributor(
             IGuidGenerator guidGenerator,
@@ -59,8 +56,7 @@ namespace Pusula.InternManagement
             IRepository<CourseInstructor> courseInstructorRepository,
             IWorkRepository workRepository,
             IdentityUserManager identityUserManager,
-            IdentityRoleManager identityRoleManager,
-            IPermissionManager permissionManager)
+            IdentityRoleManager identityRoleManager)
         {
             _guidGenerator = guidGenerator;
             _internRepository = internRepository;
@@ -78,55 +74,12 @@ namespace Pusula.InternManagement
             _workRepository = workRepository;
             _identityUserManager = identityUserManager;
             _identityRoleManager = identityRoleManager;
-            _permissionManager = permissionManager;
         }
 
         public async Task SeedAsync(DataSeedContext context)
         {
-            var role = new IdentityRole(_guidGenerator.Create(), "intern")
-            {
-                IsDefault = true,
-                IsPublic = true,
-                IsStatic = true
-            };
-
+            var role = new IdentityRole(_guidGenerator.Create(), "intern");
             await _identityRoleManager.CreateAsync(role);
-
-            // Course Permissions
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Courses.Default, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Courses.Create, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Courses.Edit, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Courses.Delete, true);
-
-            // Education Permissions
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Educations.Default, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Educations.Create, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Educations.Edit, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Educations.Delete, true);
-
-            // Experience Permissions
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Experiences.Default, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Experiences.Create, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Experiences.Edit, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Experiences.Delete, true);
-
-            // File Permissions
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Files.Default, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Files.Create, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Files.Delete, true);
-
-            // Project Permissions
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Projects.Default, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Projects.Create, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Projects.Edit, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Projects.Delete, true);
-
-            // Work Permissions
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Works.Default, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Works.Create, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Works.Edit, true);
-            await _permissionManager.SetForRoleAsync(role.Name, InternManagementPermissions.Works.Delete, true);
-
             // New Department
             var softwareDevelopment = await _departmentRepository.InsertAsync(new Department(_guidGenerator.Create(), "Software Development"), autoSave: true);
             var humanResource = await _departmentRepository.InsertAsync(new Department(_guidGenerator.Create(), "Human Resource"), autoSave: true);
@@ -166,7 +119,7 @@ namespace Pusula.InternManagement
                        "5352451124",
                        "ahmet.yilmaz@gmail.com",
                        "1q2w3E*",
-                       new DateTime(2019, 9, 19),
+                       new DateTime(2015, 9, 19),
                        new DateTime(2020, 12, 30)), autoSave: true);
 
             await _identityUserManager.AddToRoleAsync(intern1, role.Name);
@@ -278,10 +231,10 @@ namespace Pusula.InternManagement
             //var file3 = await _fileRepository.InsertAsync(new File(_guidGenerator.Create(), intern3.Id, "File-3"));
 
             // New work
-            await _workRepository.InsertAsync(new Work(_guidGenerator.Create(), intern1.Id, "Work-1", "Work-1 Description", new DateTime(2023, 4, 5)));
+            await _workRepository.InsertAsync(new Work(_guidGenerator.Create(), intern1.Id, "Work-1", "Work-1 Description", new DateTime(2022, 1, 5)));
             await _workRepository.InsertAsync(new Work(_guidGenerator.Create(), intern2.Id, "Work-2", "Work-2 Description", new DateTime(2011, 9, 15)));
-            await _workRepository.InsertAsync(new Work(_guidGenerator.Create(), intern3.Id, "Work-3", "Work-3 Description", new DateTime(2019, 11, 22)));
-            await _workRepository.InsertAsync(new Work(_guidGenerator.Create(), intern1.Id, "Work-4", "Work-4 Description", new DateTime(2023, 5, 30)));
+            await _workRepository.InsertAsync(new Work(_guidGenerator.Create(), intern3.Id, "Work-3", "Work-3 Description", new DateTime(2019, 5, 22)));
+            await _workRepository.InsertAsync(new Work(_guidGenerator.Create(), intern1.Id, "Work-4", "Work-4 Description", new DateTime(2018, 5, 30)));
         }
     }
 }
