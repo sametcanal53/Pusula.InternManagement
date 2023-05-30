@@ -9,6 +9,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\Pusula.InternManagement.Application.Contracts\Pusula.InternManagement.Application.Contracts.csproj" />
     <ProjectReference Include="..\Pusula.InternManagement.Domain.Shared\Pusula.InternManagement.Domain.Shared.csproj" />
   </ItemGroup>
 
